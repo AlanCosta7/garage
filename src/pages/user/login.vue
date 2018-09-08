@@ -31,10 +31,20 @@ export default {
           // The widget is rendered.
 
           // Update text content of buttons
-          document.querySelector('.firebaseui-idp-google .firebaseui-idp-text-long').textContent = 'Acessar com Google'
-          document.querySelector('.firebaseui-idp-facebook .firebaseui-idp-text-long').textContent =
-            'Acessar com Facebook'
-          document.querySelector('.firebaseui-idp-password .firebaseui-idp-text-long').textContent = 'Acessar com Email'
+          updateLabels()
+          function updateLabels() {
+            var elGoogle = document.querySelector('.firebaseui-idp-google .firebaseui-idp-text-long')
+            var elFacebook = document.querySelector('.firebaseui-idp-facebook .firebaseui-idp-text-long')
+            var elEmail = document.querySelector('.firebaseui-idp-password .firebaseui-idp-text-long')
+            var elementsExists = elGoogle && elFacebook && elEmail
+            if (!elementsExists) {
+              window.requestAnimationFrame(updateLabels)
+            } else {
+              elGoogle.textContent = 'Acessar com Google'
+              elFacebook.textContent = 'Acessar com Facebook'
+              elEmail.textContent = 'Acessar com Email'
+            }
+          }
         }
       }
     }
