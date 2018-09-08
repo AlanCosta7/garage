@@ -51,7 +51,6 @@
     </template>
     
     <script>
-    import {usuariosRef} from '../../components/helpers/firebase/firebaseconfig.js'
     import * as firebase from 'firebase'
     
     export default {
