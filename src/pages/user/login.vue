@@ -1,8 +1,8 @@
 <template>
     <q-page>
        <q-layout class="flex items-center column"> 
-            <h2 style="font-weight: 50">Seja bem vindo!</h2>
-            <h5 style="font-weight: 300">Acesse agora seu ambiente criativo</h5>
+            <h1>Seja bem vindo!</h1>
+            <h2>Acesse agora seu ambiente criativo</h2>
             <div id="firebaseui-auth-container"></div>
       </q-layout>
     </q-page>
@@ -63,12 +63,26 @@ export default {
 .firebaseui-idp-text {
   font-size: 18px;
 }
-ul {
+
+h1 {
+  font-size: 56px;
+  font-weight: 200;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 300;
   margin: 0;
   padding: 0;
 }
-h5 {
-  padding: 0;
-  margin: 0;
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 10vw;
+  }
+  h2 {
+    font-size: 5vw;
+  }
 }
+
 </style>
