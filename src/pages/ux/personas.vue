@@ -2,7 +2,8 @@
     <q-page>    
         <q-layout class="personas">
             <h2 style="font-weight: 50">Personas</h2>
-            <div class="row">
+          <div>  
+            <div class="row flex flex-center">
               <form @submit.prevent="onPersonas">     
         
                 <!-- *** primeiro quadrante *** -->
@@ -120,9 +121,24 @@
                     </div>
 
                 </div><br>
+              </form>
 
-                    <div class="row">
-                    <div class="col-5">
+                  <div class="listper">
+                      Lista dos Personas
+                    <q-scroll-area style="width: 100%; max-width: 85vw; height: 490px;">
+                        <q-list>
+                            <q-item v-for="item in listaPersonas" class="row" :key="item.id">
+                                <img :src=item.imageUrl alt="foto do persona" class="imagempersona">
+                                <h6 class="col colh6"> {{item.nome}} </h6>
+                                <q-btn round class="btnp" icon="visibility" size="md" color="primary" @click="veritem(item)"></q-btn>
+                                <q-btn round class="btnp" icon="delete" size="md" color="red" @click="del(item)"></q-btn>
+                            </q-item>
+                        </q-list>
+                    </q-scroll-area>
+                  </div>
+                </div>     
+                <div class="row flex flex-center">
+                    <div class="col-6">
                         <q-btn color="green" 
                             type="submit" 
                             round
@@ -135,7 +151,7 @@
                         </span>
                         </q-btn>
                     </div>
-                    <div>
+                    <div class="col-auto">
                         <q-btn color="amber" 
                             @click="clearPersona()"
                             :disabled="loading" 
@@ -148,22 +164,7 @@
                         </span>
                         </q-btn>
                     </div>
-                    </div>
-              </form>
-
-                  <div class="quadrante">
-                      Lista dos Personas
-                    <q-scroll-area style="width: 100%; max-width: 85vw; height: 500px;">
-                        <q-list>
-                            <q-item v-for="item in listaPersonas" class="row" :key="item.id">
-                                <img :src=item.imageUrl alt="foto do persona" class="imagempersona">
-                                <h6 class="col colh6"> {{item.nome}} </h6>
-                                <q-btn round class="btnp" icon="visibility" size="md" color="primary" @click="veritem(item)"></q-btn>
-                                <q-btn round class="btnp" icon="delete" size="md" color="red" @click="del(item)"></q-btn>
-                            </q-item>
-                        </q-list>
-                    </q-scroll-area>
-                  </div>
+                </div>
             </div>
             <q-modal 
                 v-model="deletar"><br>
@@ -357,9 +358,16 @@ export default {
         padding-top: 0;
     }
     .quadrante {
-        width: 300px;
+        width: 270px;
         padding: 10px;
         margin: 5px;
+        background-color: rgb(232, 234, 246)
+    }
+    .listper {
+        width: 270px;
+        padding: 10px;
+        margin: 5px;
+        margin-top: 0;
         background-color: rgb(232, 234, 246)
     }
     .imageUrl {
@@ -380,6 +388,10 @@ export default {
         margin-bottom: 5px 
     }
     .btnp {
-        margin-right: 10px
+        margin-right: 10px;
+    }
+    .per {
+        width: 100%;
+        margin-top: 30%
     }
 </style>

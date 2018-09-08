@@ -6,7 +6,7 @@
         <q-btn round color="primary" @click.native="helpe">?</q-btn>
        </div> 
         <q-card class="flex flex-center problema" color="dark">
-          <p>Problema: {{myProject.descricao}}</p>
+          <h5>Problema: {{myProject.descricao}}</h5>
         </q-card>
 
 
@@ -45,7 +45,7 @@
                       </q-scroll-area>
         </div>
 
-        <q-card class="flex flex-center" color="dark"><h4>Como? Quando? Onde? Porque?</h4></q-card>
+        <q-card class="flex flex-center problema" color="dark"><h5>Como? Quando? Onde? Porque?</h5></q-card>
              
         
         <div class="col-auto bg duplodiam">

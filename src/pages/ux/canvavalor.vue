@@ -4,8 +4,8 @@
           <q-layout class="canvas">
     
             <h2 style="font-weight: 50">Canvas da Proposta de Valor</h2>
-          <!-- *** Painel *** -->
-          <div class="row-xl flex flex-center" id="canvas" >
+          <!-- *** Painel Desktop *** -->
+          <div class="row-xl flex flex-center mobile-hide" id="canvas" >
                 <div class="row titulovalor flex flex-center"><p class="col-6">Proposta de Valor</p><p class="col-auto">Segmento de Mercado</p></div>
 
               <div class="row">
@@ -14,7 +14,7 @@
                         <h6 class="col"><q-icon name="room_service" size="20px"/> Produtos e Serviços</h6>
                         <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitpca = true"></q-btn>
                       </div>
-                            <q-scroll-area style="width: 100%; max-width: 85vw; height: 265px; max-height: 70vh;">
+                            <q-scroll-area style="width: 100%; height: 300px">
                               <q-list>
                                 <q-item class="item" v-for="item in listaProdutoservico" :key="item.id">
                                   <q-card :color=item.color class="postitext row">                              
@@ -32,7 +32,7 @@
                         <h6 class="col"><q-icon name="trending_up" size="20px"/> Criadores de Ganhos</h6>
                         <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitaca = true"></q-btn>
                       </div>
-                          <q-scroll-area style="width: 100%; max-width: 85vw; height: 120px; max-height: 70vh;">
+                          <q-scroll-area style="width: 100%; height: 190px">
                             <q-list>
                               <q-item class="item" v-for="item in listaCriadoresganho" :key="item.id">
                                 <q-card :color=item.color class="postitext row">                              
@@ -49,7 +49,7 @@
                           <h6 class="col"><q-icon name="local_hospital" size="20px"/> Analgésicos</h6>
                           <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitrca = true"></q-btn>
                         </div>
-                            <q-scroll-area style="width: 100%; max-width: 85vw; height: 120px; max-height: 70vh;">
+                            <q-scroll-area style="width: 100%; height: 190px">
                               <q-list>
                                 <q-item class="item" v-for="item in listaAnalgesico" :key="item.id">
                                   <q-card :color=item.color class="postitext row">                              
@@ -68,7 +68,7 @@
                         <h6 class="col"><q-icon name="sentiment_satisfied_alt" size="20px"/> Ganhos do Cliente</h6>
                         <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitreca = true"></q-btn>
                       </div>
-                          <q-scroll-area style="width: 100%; max-width: 85vw; height: 120px; max-height: 70vh;">
+                          <q-scroll-area style="width: 100%; height: 190px">
                             <q-list>
                               <q-item class="item" v-for="item in listaGanhos" :key="item.id">
                                 <q-card :color=item.color class="postitext row">                              
@@ -85,7 +85,7 @@
                           <h6 class="col"><q-icon name="sentiment_very_dissatisfied" size="20px"/> Dores do Cliente</h6>
                           <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitcaa = true"></q-btn>
                         </div>
-                            <q-scroll-area style="width: 100%; max-width: 85vw; height: 120px; max-height: 70vh;">
+                            <q-scroll-area style="width: 100%; height: 190px">
                               <q-list>
                                 <q-item class="item" v-for="item in listaDores" :key="item.id">
                                   <q-card :color=item.color class="postitext row">                              
@@ -103,7 +103,7 @@
                           <h6 class="col"><q-icon name="playlist_add_check" size="20px"/> Tarefas do Cliente</h6>
                           <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitsma = true"></q-btn>
                         </div>
-                              <q-scroll-area style="width: 100%; max-width: 85vw; height: 265px; max-height: 70vh;">
+                              <q-scroll-area style="width: 100%; height: 300px;">
                                 <q-list>
                                   <q-item class="item" v-for="item in listaTarefas" :key="item.id">
                                     <q-card :color=item.color class="postitext row">                              
@@ -118,7 +118,119 @@
     
               </div>
           </div> 
-    
+
+          <!-- *** Painel Mobile *** -->
+
+          <div class="row-xl flex flex-center mobile-only" >
+            <div class="titulovalor flex flex-center"><p>Proposta de Valor</p></div>
+
+          <div class="column">
+                <div class="bg canvapro">
+                  <div class="row cab"> 
+                    <h6 class="col"><q-icon name="room_service" size="20px"/> Produtos e Serviços</h6>
+                    <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitpca = true"></q-btn>
+                  </div>
+                        <q-scroll-area style="width: 100%; height: 300px">
+                          <q-list>
+                            <q-item class="item" v-for="item in listaProdutoservico" :key="item.id">
+                              <q-card :color=item.color class="postitext row">                              
+                                <p class="col">{{item.produtoservico}}</p>
+                                <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititempca(item)"></q-btn>
+                              </q-card>
+                            </q-item>
+                          </q-list>
+                        </q-scroll-area>
+                </div>
+
+                 <div class="bg canvapro">
+                  <div class="row cab"> 
+                    <h6 class="col"><q-icon name="trending_up" size="20px"/> Criadores de Ganhos</h6>
+                    <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitaca = true"></q-btn>
+                  </div>
+                      <q-scroll-area style="width: 100%; height: 300px">
+                        <q-list>
+                          <q-item class="item" v-for="item in listaCriadoresganho" :key="item.id">
+                            <q-card :color=item.color class="postitext row">                              
+                              <p class="col">{{item.criadoresganho}}</p>
+                              <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemaca(item)"></q-btn>
+                            </q-card>
+                          </q-item>
+                        </q-list>
+                      </q-scroll-area>
+                 </div>
+                
+                 <div class="bg canvapro">
+                    <div class="row cab"> 
+                      <h6 class="col"><q-icon name="local_hospital" size="20px"/> Analgésicos</h6>
+                      <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitrca = true"></q-btn>
+                    </div>
+                        <q-scroll-area style="width: 100%; height: 300px">
+                          <q-list>
+                            <q-item class="item" v-for="item in listaAnalgesico" :key="item.id">
+                              <q-card :color=item.color class="postitext row">                              
+                                <p class="col">{{item.analgesico}}</p>
+                                <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemrca(item)"></q-btn>
+                              </q-card>
+                            </q-item>
+                          </q-list>
+                        </q-scroll-area>
+                 </div>
+                 <div class="titulovalor flex flex-center"><p>Segmento de Mercado</p></div>
+
+                 <div class="bg canvapro">
+                  <div class="row cab"> 
+                    <h6 class="col"><q-icon name="sentiment_satisfied_alt" size="20px"/> Ganhos do Cliente</h6>
+                    <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitreca = true"></q-btn>
+                  </div>
+                      <q-scroll-area style="width: 100%; height: 300px">
+                        <q-list>
+                          <q-item class="item" v-for="item in listaGanhos" :key="item.id">
+                            <q-card :color=item.color class="postitext row">                              
+                              <p class="col">{{item.ganhos}}</p>
+                              <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemreca(item)"></q-btn>
+                            </q-card>
+                          </q-item>
+                        </q-list>
+                      </q-scroll-area>
+                 </div>
+                
+                 <div class="bg canvapro">
+                    <div class="row cab"> 
+                      <h6 class="col"><q-icon name="sentiment_very_dissatisfied" size="20px"/> Dores do Cliente</h6>
+                      <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitcaa = true"></q-btn>
+                    </div>
+                        <q-scroll-area style="width: 100%; height: 300px">
+                          <q-list>
+                            <q-item class="item" v-for="item in listaDores" :key="item.id">
+                              <q-card :color=item.color class="postitext row">                              
+                                <p class="col">{{item.dores}}</p>
+                                <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemcaa(item)"></q-btn>
+                              </q-card>
+                            </q-item>
+                          </q-list>
+                        </q-scroll-area>
+                 </div>
+                
+                <div class="bg canvapro">
+                    <div class="row cab"> 
+                      <h6 class="col"><q-icon name="playlist_add_check" size="20px"/> Tarefas do Cliente</h6>
+                      <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitsma = true"></q-btn>
+                    </div>
+                          <q-scroll-area style="width: 100%; height: 300px">
+                            <q-list>
+                              <q-item class="item" v-for="item in listaTarefas" :key="item.id">
+                                <q-card :color=item.color class="postitext row">                              
+                                  <p class="col">{{item.tarefas}}</p>
+                                  <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemsma(item)"></q-btn>
+                                </q-card>
+                              </q-item>
+                            </q-list>
+                          </q-scroll-area>
+                </div>
+          </div> 
+
+          </div>
+      </div>
           <!-- *** Post-it PC *** -->
           <q-modal v-model="postitpca" :color='color' :content-css="{minWidth: '40vw', minHeight: '40vh'}">
               <q-modal-layout>
@@ -792,7 +904,8 @@
           background: rgba(0,0,0,0.7);
           }
           .cab {
-            height: 45px;
+            height: 50px;
+            padding-bottom: 20%
           }
           .item {
             padding-top: 0px;
@@ -804,5 +917,12 @@
         }
         .titulovalor {
             width: 100%;
+            padding-top: 5%;
+        }
+        .canvapro {
+          width: 300px;
+          height: 400px;
+          padding: 2%;
+          margin: 2%
         }
       </style>

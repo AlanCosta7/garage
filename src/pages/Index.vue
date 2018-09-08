@@ -1,10 +1,9 @@
 <template>
-  <q-page class="flex flex-center column">
+  <q-page class="flex itemn-center column">
       <q-modal style="background-color: rgba(0,0,0,.75); overflow: hidden" v-model="addprojeto">
           <q-page padding class="justify-center" style="background-color: white">
               <form @submit.prevent="onAddProjeto">
                 <q-field
-                  count
                   helper="Palavra chave"
                 >  
                   <q-input
@@ -14,7 +13,6 @@
                   />
                 </q-field><br><br>
                 <q-field
-                  count
                   helper="Qual problema você precisa resolver?"
                 >  
                   <q-input
@@ -48,9 +46,10 @@
               </form>
           </q-page>      
       </q-modal>
-      <h3 v-if="listaMyProject.length == 0" style="font-weight: 50">Qual problema você quer resolver?</h3>
-      <h5 v-if="listaMyProject.length == 0">Inicie seu processo criativo descrevendo seu problema</h5>
- <q-list class="flex-center row items-start">
+      <div class="inicio">
+        <h3 v-if="listaMyProject.length == 0" style="font-weight: 50">Qual problema você quer resolver?</h3>
+        <h5 v-if="listaMyProject.length == 0">Inicie seu processo criativo descrevendo seu problema</h5>
+   <q-list class="flex-center row items-start">
         <q-item v-for='item in listaMyProject' link @click.native="entrarProjeto(item)" :key='item.id' >
           <q-card inline class="bigger q-ma-sm ecard" >
               <q-card-title class="relative-position">         
@@ -64,6 +63,8 @@
       </q-list>
       <q-btn class="btnadd" v-if="listaMyProject.length == 0" round color='blue-4' icon='add' @click.native='addprojeto = true'>  
       </q-btn>
+    </div> 
+
   </q-page>
 </template>
 
@@ -168,7 +169,7 @@ export default {
 
     }
     .btnadd {
-      margin-left: 10%
+      margin: 5%
     }
     .q-list {
       border: none
@@ -191,5 +192,9 @@ export default {
         padding: 10px;
         font-size: 0.75em;
         color: white
+      }
+      .inicio {
+        padding: 10%;
+        text-align: center
       }
 </style>

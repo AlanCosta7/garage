@@ -1,6 +1,7 @@
 <template>
     <q-page>
         <q-layout class="mapausuario">
+
           <h2 style="font-weight: 50">Mapa da Jornada do Usuário</h2>
                       
             <!-- *** Modal para criar Premissa  *** -->
@@ -168,88 +169,93 @@
                         </q-tooltip>
                     </q-btn>
                 </div>
-              <div id="container">    
-                <q-list class="flex-center row no-wrap inline items-start ">
-                    <q-item v-for='item in listaEstagio' :key='item.id'>
-                    <div class="column inline no-wrap">
-                        <div class="premissa column"><p>{{item.estagio}}</p><q-btn class="deleteprem" round color="red" flat size="xs" icon="close" @click.native="delestagio(item)"/>
-                        </div><br>
-                        <q-item-main>
-                          <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
-                            <q-input v-model="item.textfazendo" :before="[{icon: 'hourglass_full'}]" inverted type="textarea" float-label="Fazendo" />
-                          </q-scroll-area>
-                        </q-item-main><br>
-                        <q-item-main>
-                          <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
-                            <q-input v-model="item.textpensando" :before="[{icon: 'sms'}]" inverted type="textarea" float-label="Pensando" />
-                          </q-scroll-area>
-                        </q-item-main><br>
-                        <q-item-main>
-                          <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
-                            <q-input v-model="item.textsentindo" :before="[{icon: 'favorite_border'}]" inverted type="textarea" float-label="Sentindo" />
-                          </q-scroll-area>
-                        </q-item-main><br>
-                        <q-item-main>
-                            <p class="caption">
-                                Aproveitamento
-                            </p>
-                            <q-slider
-                                v-model="item.aproveitamento"
-                                :min="0"
-                                :max="10"
-                                label
-                                label-always
-                                snap
-                            />
-                        </q-item-main>
-                        <q-item-main>    
-                            <p class="caption">
-                                Relevancia
-                            </p>
-                            <q-slider
-                                v-model="item.relevancia"
-                                :min="0"
-                                :max="10"
-                                label
-                                label-always
-                                snap
-                            />
-                        </q-item-main>
-                        <q-item-main>    
-                            <p class="caption">
-                                Utilidade
-                            </p>
-                            <q-slider
-                                v-model="item.utilidade"
-                                :min="0"
-                                :max="10"
-                                label
-                                label-always
-                                snap
-                            />
-                        </q-item-main>
-                    </div>
-                    </q-item>
-                </q-list>
-              </div>
 
-              <div class="row flex items-center">
-                <h6>Oportunidades</h6>    
-                <q-btn class="btnadd" round color='blue-4' icon='add' @click.native='addoportinidades = true'>  
-                    <q-tooltip>
-                        Criar oportunidades
-                    </q-tooltip>
-                </q-btn>                
-              </div>
-              <q-list class="flex-center row no-wrap inline items-start ">
-                <q-item v-for='item in listaOportunidade' :key='item.id' class="scrollmenu">
-                    <div class="column inline no-wrap">
-                        <div class="premissa column"><p>{{item.oportunidade}}</p><q-btn class="deleteprem" round color="red" flat size="xs" icon="close" @click.native="deloportunidade(item)"/>
-                        </div><br>
-                    </div>
-                </q-item> 
-              </q-list>   
+            <div class="scrolling-wrapper" style="width: 100%; height: 1000px;">
+                <div id="container">    
+                        <q-list class="flex-center row no-wrap inline items-start ">
+                            <q-item v-for='item in listaEstagio' :key='item.id'>
+                            <div class="column inline no-wrap">
+                                <div class="premissa column"><p>{{item.estagio}}</p><q-btn class="deleteprem" round color="red" flat size="xs" icon="close" @click.native="delestagio(item)"/>
+                                </div><br>
+                                <q-item-main>
+                                <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
+                                    <q-input v-model="item.textfazendo" :before="[{icon: 'hourglass_full'}]" inverted type="textarea" float-label="Fazendo" />
+                                </q-scroll-area>
+                                </q-item-main><br>
+                                <q-item-main>
+                                <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
+                                    <q-input v-model="item.textpensando" :before="[{icon: 'sms'}]" inverted type="textarea" float-label="Pensando" />
+                                </q-scroll-area>
+                                </q-item-main><br>
+                                <q-item-main>
+                                <q-scroll-area style="width: 100%; height: 90px; max-height: 70vh;">
+                                    <q-input v-model="item.textsentindo" :before="[{icon: 'favorite_border'}]" inverted type="textarea" float-label="Sentindo" />
+                                </q-scroll-area>
+                                </q-item-main><br>
+                                <q-item-main>
+                                    <p class="caption">
+                                        Aproveitamento
+                                    </p>
+                                    <q-slider
+                                        v-model="item.aproveitamento"
+                                        :min="0"
+                                        :max="10"
+                                        label
+                                        label-always
+                                        snap
+                                    />
+                                </q-item-main>
+                                <q-item-main>    
+                                    <p class="caption">
+                                        Relevancia
+                                    </p>
+                                    <q-slider
+                                        v-model="item.relevancia"
+                                        :min="0"
+                                        :max="10"
+                                        label
+                                        label-always
+                                        snap
+                                    />
+                                </q-item-main>
+                                <q-item-main>    
+                                    <p class="caption">
+                                        Utilidade
+                                    </p>
+                                    <q-slider
+                                        v-model="item.utilidade"
+                                        :min="0"
+                                        :max="10"
+                                        label
+                                        label-always
+                                        snap
+                                    />
+                                </q-item-main>
+                            </div>
+                            </q-item>
+                        </q-list>
+                </div>
+        
+                <div class="row flex items-center">
+                        <h6>Oportunidades</h6>    
+                        <q-btn class="btnadd" round color='blue-4' icon='add' @click.native='addoportinidades = true'>  
+                            <q-tooltip>
+                                Criar oportunidades
+                            </q-tooltip>
+                        </q-btn>                
+                </div>
+                <q-list class="flex-center row no-wrap inline items-start ">
+                        <q-item v-for='item in listaOportunidade' :key='item.id' class="scrollmenu">
+                            <div class="column inline no-wrap">
+                                <div class="premissa column"><p>{{item.oportunidade}}</p><q-btn class="deleteprem" round color="red" flat size="xs" icon="close" @click.native="deloportunidade(item)"/>
+                                </div><br>
+                            </div>
+                        </q-item> 
+                </q-list> 
             </div>
+
+            </div>
+
         </q-layout>
     </q-page>
 </template>
@@ -470,10 +476,15 @@
     .deleteprem {
         position: absolute;
         top: 9px;
-        right: 15px;
+        right: 30px;
     }
     .modal-content,
       .q-modal-layout {
         padding: 2%;
+      }
+      .scrolling-wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
       }
 </style>
