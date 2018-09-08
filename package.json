@@ -1,7 +1,7 @@
 {
   "name": "uxapp",
   "version": "1.0.0",
-  "description": "A maneira mais simples e eficiente de praticar metodologias UX e Design Thinking para seu projeto",
+  "description": "A maneira mais simples e eficiente de praticar metodologias UX e Design Thinking",
   "productName": "UXapp",
   "cordovaId": "br.com.uxapp",
   "author": "Alan Costa <alanpc7@gmail.com>",

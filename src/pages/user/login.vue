@@ -3,7 +3,7 @@
        <q-layout class="flex items-center column"> 
             <h2 style="font-weight: 50">Seja bem vindo!</h2>
             <h5 style="font-weight: 300">aqui é seu ambiente criativo</h5>
-                <q-card class="login">login</q-card>
+                <q-card class="login">entrar</q-card>
                 <div id="firebaseui-auth-container"></div>
       </q-layout>
     </q-page>
@@ -61,12 +61,20 @@ export default {
         border: 2px;
         border-color: black
     }
+    .firebaseui-idp-google:hover {
+        background-color: rgb(219, 214, 214);
+        cursor:pointer;
+    }
     .firebaseui-idp-facebook {
         background-color: steelblue;
         height: 60px;
         border-radius: 10px;
         width: 100%;
         max-width: 300px;
+    }
+    .firebaseui-idp-facebook:hover {
+        background-color:rgb(63, 113, 155);
+        cursor:pointer; 
     }
     #firebaseui-auth-container {
         text-align: center;
@@ -78,6 +86,10 @@ export default {
         border-radius: 10px;
         width: 100%;
         max-width: 300px;
+    }
+    .firebaseui-idp-password:hover {
+        background-color: rgb(175, 17, 48);
+        cursor:pointer; 
     }
     .firebaseui-idp-list {
         display: inline;
