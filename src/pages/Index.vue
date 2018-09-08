@@ -73,75 +73,88 @@ import * as firebase from 'firebase'
 
 export default {
   name: 'PageIndex',
-  data () {
+  meta: {
+    title: 'garage thinking'
+  },
+  data() {
     return {
       addprojeto: false,
       titulo: '',
-      descricao: '',
+      descricao: ''
     }
   },
-  mounted () {
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
         this.$router.push('/')
-        this.$store.dispatch('carregarUsuario') 
+        this.$store.dispatch('carregarUsuario')
         this.$store.dispatch('carregaProject')
       } else {
         this.$router.push('/login')
       }
-     }); 
+    })
   },
   computed: {
-    loading () {
+    loading() {
       return this.$store.getters.loading
     },
-    error () {
+    error() {
       return this.$store.getters.error
     },
-    usuario () {
+    usuario() {
       return this.$store.getters.usuario
     },
     user() {
-      return this.$store.getters.user      
+      return this.$store.getters.user
     },
-    listaMyProject () {
+    listaMyProject() {
       return this.$store.getters.listaMyProject
-    },
+    }
   },
   methods: {
     entrarProjeto(item) {
       this.editedIndex = this.listaMyProject.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.$store.dispatch('addMyProject', item)
-      this.$router.push("/myprojeto")
+      this.$router.push('/myprojeto')
     },
-    onAddProjeto () {  
-            var userData = {
-                titulo: this.titulo,
-                descricao: this.descricao,
-                }
+    onAddProjeto() {
+      var userData = {
+        titulo: this.titulo,
+        descricao: this.descricao
+      }
 
-            var newPostKey = firebase.database().ref().child('posts').push().key    
-            var updates = {}    
-            var uid = this.user.uid
-            updates['/usuarios/' + uid + '/user/projeto/' + newPostKey] = userData
-            this.addprojeto = false
-            var key = newPostKey
-            return firebase.database().ref().update(updates)
-            .then((data) => {
-                const key = newPostKey
-                var uid = this.user.uid
-                firebase.database().ref('/usuarios/' + uid + '/user/projeto/' + key).update({key: key})  
-              })
-                .catch(function(error) {
-                // [START onfailure]
-                console.error('Upload failed:', error);
-                // [END onfailure]
-            })
+      var newPostKey = firebase
+        .database()
+        .ref()
+        .child('posts')
+        .push().key
+      var updates = {}
+      var uid = this.user.uid
+      updates['/usuarios/' + uid + '/user/projeto/' + newPostKey] = userData
+      this.addprojeto = false
+      var key = newPostKey
+      return firebase
+        .database()
+        .ref()
+        .update(updates)
+        .then(data => {
+          const key = newPostKey
+          var uid = this.user.uid
+          firebase
+            .database()
+            .ref('/usuarios/' + uid + '/user/projeto/' + key)
+            .update({ key: key })
+        })
+        .catch(function(error) {
+          // [START onfailure]
+          console.error('Upload failed:', error)
+          // [END onfailure]
+        })
     },
-    sair () {
+    sair() {
       this.$store.dispatch('logout')
-      this.$router.push("/login")
+      this.$router.push('/login')
       //this.$store.dispatch('setClearState')
     }
   }
@@ -149,52 +162,51 @@ export default {
 </script>
 
 <style>
-    .imgemCard {
-      width: 300px;
-      min-width: 50px;
-      height: 100px;
-    }
-    .imagcapa {
-      object-fit: cover;
-      width: 150px;
-      height: 150px;
-    }
-    .ecard {
-      object-fit: cover;
-      border-radius: 1em;
-      width: 200px;
-      height: 150px;
-      background-color: orangered;
-      color: white;
-
-    }
-    .btnadd {
-      margin: 5%
-    }
-    .q-list {
-      border: none
-    }
-    .modal-content,
-      .q-modal-layout {
-        padding: 2%;
-        background-color: white;
-        height: 500px;
-        overflow: hidden
-      }
-      .titulo {
-        font-size: 1em;
-        font-weight: bold;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      .textdescr {
-        text-align: justify;
-        padding: 10px;
-        font-size: 0.75em;
-        color: white
-      }
-      .inicio {
-        padding: 10%;
-        text-align: center
-      }
+.imgemCard {
+  width: 300px;
+  min-width: 50px;
+  height: 100px;
+}
+.imagcapa {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+}
+.ecard {
+  object-fit: cover;
+  border-radius: 1em;
+  width: 200px;
+  height: 150px;
+  background-color: orangered;
+  color: white;
+}
+.btnadd {
+  margin: 5%;
+}
+.q-list {
+  border: none;
+}
+.modal-content,
+.q-modal-layout {
+  padding: 2%;
+  background-color: white;
+  height: 500px;
+  overflow: hidden;
+}
+.titulo {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+.textdescr {
+  text-align: justify;
+  padding: 10px;
+  font-size: 0.75em;
+  color: white;
+}
+.inicio {
+  padding: 10%;
+  text-align: center;
+}
 </style>

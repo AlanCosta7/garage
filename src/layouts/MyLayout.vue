@@ -55,7 +55,7 @@
       <div class="separador"></div>
         <q-item link @click.native="home()">
           <q-item-side icon="dashboard" color="amber" />
-          <q-item-main label="Painel"/>
+          <q-item-main label="Projetos"/>
         </q-item>
         <q-item link @click.native="sair()">
           <q-item-side icon="close" color="amber" />
