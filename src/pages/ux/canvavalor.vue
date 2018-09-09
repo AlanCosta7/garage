@@ -758,7 +758,7 @@
               listaCriadoresganho[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaCriadoresganho/').set(listaCriadoresganho)
+              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').set(listaCriadoresganho)
               this.postiteditaca = false
             }
           },
@@ -806,7 +806,7 @@
               listaTarefas[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalorvalor/listaTarefas/').set(listaTarefas)
+              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').set(listaTarefas)
               this.postiteditsma = false
             }
           },

@@ -182,7 +182,8 @@ export default {
         var key = this.myProject.key
         var uid = this.user.uid
                 firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/').update(
-                    {descobrir: this.listaDiamante}
+                    {descobrir: this.listaDiamante,
+                    desenvolver: this.listaPrototipo}
                 )
         },
     methods : {   
