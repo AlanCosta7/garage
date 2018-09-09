@@ -244,11 +244,13 @@ export default {
       edititempc (item) {
         this.editedIndex = this.listaDiamante.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditpc = true
       },
       edititemproto (item) {
         this.editedIndex = this.listaPrototipo.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditproto = true
       },
       deleteitempc (item) {
@@ -288,6 +290,7 @@ export default {
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/').set(listaDiamante)
           this.postiteditpc = false
         }
+        this.color = "orange"
       },
       saveproto () {
         if (this.editedIndex > -1) {
@@ -299,6 +302,7 @@ export default {
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/').set(listaPrototipo)
           this.postiteditproto = false
         }
+        this.color = "orange"
       }
     },
     computed: {

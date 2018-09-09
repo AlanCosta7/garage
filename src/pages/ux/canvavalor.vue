@@ -711,31 +711,37 @@
           edititempca (item) {
             this.editedIndex = this.listaProdutoservico.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditpca = true
           },
           edititemaca (item) {
             this.editedIndex = this.listaCriadoresganho.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditaca = true
           },
           edititemrca (item) {
             this.editedIndex = this.listaAnalgesico.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditrca = true
           },
           edititemreca (item) {
             this.editedIndex = this.listaGanhos.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditreca = true
           },
           edititemcaa (item) {
             this.editedIndex = this.listaDores.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditcaa = true
           },
           edititemsma (item) {
             this.editedIndex = this.listaTarefas.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.color = this.editedItem.color
             this.postiteditsma = true
           },
           savepca () {
@@ -749,6 +755,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/').set(listaProdutoservico)
               this.postiteditpca = false
             }
+        this.color = "orange"
           },
           saveaca () {
             if (this.editedIndex > -1) {
@@ -761,6 +768,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').set(listaCriadoresganho)
               this.postiteditaca = false
             }
+        this.color = "orange"
           },
           saverca () {
             if (this.editedIndex > -1) {
@@ -773,6 +781,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/').set(listaAnalgesico)
               this.postiteditrca = false
             }
+        this.color = "orange"
           },
           savereca () {
             if (this.editedIndex > -1) {
@@ -785,6 +794,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/').set(listaGanhos)
               this.postiteditreca = false
             }
+        this.color = "orange"
           },
           savecaa () {
             if (this.editedIndex > -1) {
@@ -797,6 +807,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/').set(listaDores)
               this.postiteditcaa = false
             }
+        this.color = "orange"
           },
           savesma () {
             if (this.editedIndex > -1) {
@@ -809,6 +820,7 @@
               firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').set(listaTarefas)
               this.postiteditsma = false
             }
+        this.color = "orange"
           },
           blueitem (editedItem) {
             this.color = 'light-blue-13'

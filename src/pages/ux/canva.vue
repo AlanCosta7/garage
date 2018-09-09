@@ -139,7 +139,8 @@
           <div class="row">
               <div class="col-auto bg" id="ec">
                     <div class="row cab"> 
-                      <h6 class="col"><q-icon name="receipt" size="20px"/> Estrutura de Custo</h6>
+                      <h6 class="col-3 flex flex-center"><q-icon name="receipt" size="20px"/> Estrutura de Custo</h6>
+                      <h6 class="col flex flex-center" color="red">Total: R${{valorec}}</h6>
                       <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitec = true"></q-btn>
                     </div>
                     <q-scroll-area style="width: 100%; max-width: 85vw; height: 150px; max-height: 70vh;">
@@ -147,6 +148,7 @@
                         <q-item class="item" v-for="item in listaEstruturadeCusto" :key="item.id">
                           <q-card :color=item.color class="postitext row">                              
                             <p class="col">{{item.estruturadecusto}}</p>
+                            <p class="col">R${{item.valorestruturadecusto}}</p>
                             <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemec(item)"></q-btn>
                           </q-card>
                         </q-item>
@@ -156,7 +158,8 @@
 
               <div class="col-auto bg" id="fr">
                     <div class="row cab"> 
-                      <h6 class="col"><q-icon name="local_atm" size="20px"/>  Fontes de Renda</h6>
+                      <h6 class="col-3 flex flex-center"><q-icon name="local_atm" size="20px"/>  Fontes de Renda</h6>
+                      <h6 class="col flex flex-center" color="red">Total: R${{valorfr}}</h6>
                       <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitfr = true"></q-btn>
                     </div>
                     <q-scroll-area style="width: 100%; max-width: 85vw; height: 150px; max-height: 70vh;">
@@ -164,6 +167,7 @@
                         <q-item class="item" v-for="item in listaFontedeRenda" :key="item.id">
                           <q-card :color=item.color class="postitext row">                              
                             <p class="col">{{item.fontederenda}}</p>
+                            <p class="col">R${{item.valorfontederenda}}</p>
                             <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemfr(item)"></q-btn>
                           </q-card>
                         </q-item>
@@ -301,7 +305,8 @@
 
               <div class="bg canvapro">
                     <div class="row cab"> 
-                      <h6 class="col"><q-icon name="receipt" size="20px"/> Estrutura de Custo</h6>
+                      <h6 class="col-3"><q-icon name="receipt" size="20px"/> Estrutura de Custo</h6>
+                      <h6 class="col flex flex-center" color="red">Total: R${{valorec}}</h6>
                       <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitec = true"></q-btn>
                     </div>
                     <q-scroll-area style="width: 100%; height: 300px">
@@ -309,6 +314,7 @@
                         <q-item class="item" v-for="item in listaEstruturadeCusto" :key="item.id">
                           <q-card :color=item.color class="postitext row">                              
                             <p class="col">{{item.estruturadecusto}}</p>
+                            <p class="col">{{item.valorestruturadecusto}}</p>
                             <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemec(item)"></q-btn>
                           </q-card>
                         </q-item>
@@ -318,7 +324,8 @@
 
               <div class="bg canvapro">
                     <div class="row cab"> 
-                      <h6 class="col"><q-icon name="local_atm" size="20px"/>  Fontes de Renda</h6>
+                      <h6 class="col-3"><q-icon name="local_atm" size="20px"/>  Fontes de Renda</h6>
+                      <h6 class="col flex flex-center" color="red">Total: R${{valorfr}}</h6>
                       <q-btn round color="primary" class="btn-postit" size="xs" icon="add" @click.native="postitfr = true"></q-btn>
                     </div>
                     <q-scroll-area style="width: 100%; height: 300px">
@@ -326,6 +333,7 @@
                         <q-item class="item" v-for="item in listaFontedeRenda" :key="item.id">
                           <q-card :color=item.color class="postitext row">                              
                             <p class="col">{{item.fontederenda}}</p>
+                            <p class="col">{{item.valorfontederenda}}</p>
                             <q-btn round icon="edit" class="no-shadow" size="xs" @click="edititemfr(item)"></q-btn>
                           </q-card>
                         </q-item>
@@ -459,6 +467,7 @@
             <br><br>
             <q-card :color='color' class="card">
               <q-input v-model="estruturadecusto" type="textarea"/>
+              <q-input v-model="valorestruturadecusto" type="number" prefix="R$"/>
             </q-card>
           </q-modal-layout>
           <div class="botoes row flex flex-center">
@@ -476,6 +485,8 @@
             <br><br>
             <q-card :color='color' class="card">
               <q-input v-model="fontederenda" type="textarea"/>
+              <q-input v-model="valorfontederenda" type="number" prefix="R$"/>
+
             </q-card>
           </q-modal-layout>
           <div class="botoes row flex flex-center">
@@ -619,6 +630,7 @@
             <br><br>
             <q-card :color='editedItem.color' class="card">
               <q-input v-model="editedItem.estruturadecusto" type="textarea"/>
+              <q-input v-model="editedItem.valorestruturadecusto" type="number" prefix="R$"/>              
             </q-card>
         </q-modal-layout>
               <div class="botoes row flex flex-center">
@@ -637,6 +649,7 @@
             <br><br>
             <q-card :color='editedItem.color' class="card">
               <q-input v-model="editedItem.fontederenda" type="textarea"/>
+              <q-input v-model="editedItem.valorfontederenda" type="number" prefix="R$"/>              
             </q-card>
         </q-modal-layout>
               <div class="botoes row flex flex-center">
@@ -692,6 +705,8 @@
         canais: '',
         segmento: '',
         estruturadecusto: '',
+        valorestruturadecusto: '',
+        valorfontederenda: '',
         fontederenda: '',
         color: 'orange'
       }
@@ -729,6 +744,22 @@
       listaFontedeRenda () {
         return this.$store.getters.listaFontedeRenda
       },
+      valorec () {
+        var valorec = 0
+        var listaEstruturadeCusto = this.listaEstruturadeCusto
+        for (var i = 0; i < listaEstruturadeCusto.length; i++) {
+          valorec = listaEstruturadeCusto[i].valorestruturadecusto + valorec
+        }
+        return valorec
+      },
+      valorfr () {
+        var valorfr = 0
+        var listaFontedeRenda = this.listaFontedeRenda
+        for (var i = 0; i < listaFontedeRenda.length; i++) {
+          valorfr = listaFontedeRenda[i].valorfontederenda + valorfr
+        }
+        return valorfr
+      }
     }, 
     methods: {
       canvasf () {
@@ -884,6 +915,7 @@
         var uid = this.user.uid
         var userData = {
           estruturadecusto: this.estruturadecusto, 
+          valorestruturadecusto: this.valorestruturadecusto,
           color: this.color
         }
         var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaEstruturadeCusto/').push().key    
@@ -892,6 +924,7 @@
             var key = this.myProject.key
             updates['usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaEstruturadeCusto/' + newCanvaKey] = userData
             this.estruturadecusto = ''
+            this.valorestruturadecusto = ''
             this.postitec = false
             return firebase.database().ref().update(updates)
       },
@@ -900,6 +933,7 @@
         var uid = this.user.uid
         var userData = {
           fontederenda: this.fontederenda, 
+          valorfontederenda: this.valorfontederenda,
           color: this.color
         }
         var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaFontedeRenda/').push().key    
@@ -908,6 +942,7 @@
             var key = this.myProject.key
             updates['usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaFontedeRenda/' + newCanvaKey] = userData
             this.fontederenda = ''
+            this.valorfontederenda = ''
             this.postitfr = false
             return firebase.database().ref().update(updates)
       },
@@ -1003,7 +1038,7 @@
         }
       },
       deleteitemec (item) {
-        this.savesm()
+        this.saveec()
         var keyitem = this.editedIndex
         var uid = this.user.uid
         var key = this.myProject.key
@@ -1031,46 +1066,55 @@
       edititempc (item) {
         this.editedIndex = this.listaParceirosChave.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditpc = true
       },
       edititemac (item) {
         this.editedIndex = this.listaAtividadeChave.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditac = true
       },
       edititemrc (item) {
         this.editedIndex = this.listaRecursosChave.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditrc = true
       },
       edititempv (item) {
         this.editedIndex = this.listaPropostadeValor.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditpv = true
       },
       edititemrec (item) {
         this.editedIndex = this.listaRelacaoCliente.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditrec = true
       },
       edititemca (item) {
         this.editedIndex = this.listaCanais.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditca = true
       },
       edititemsm (item) {
         this.editedIndex = this.listaSegmento.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditsm = true
       },
       edititemec (item) {
         this.editedIndex = this.listaEstruturadeCusto.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditec = true
       },
       edititemfr (item) {
         this.editedIndex = this.listaFontedeRenda.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.color = this.editedItem.color
         this.postiteditfr = true
       },
       savepc () {
@@ -1084,6 +1128,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaParceirosChave/').set(listaParceirosChave)
           this.postiteditpc = false
         }
+        this.color = "orange"
       },
       saveac () {
         if (this.editedIndex > -1) {
@@ -1096,6 +1141,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaAtividadeChave/').set(listaAtividadeChave)
           this.postiteditac = false
         }
+        this.color = "orange"
       },
       saverc () {
         if (this.editedIndex > -1) {
@@ -1108,6 +1154,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaRecursosChave/').set(listaRecursosChave)
           this.postiteditrc = false
         }
+        this.color = "orange"
       },
       savepv () {
         if (this.editedIndex > -1) {
@@ -1120,6 +1167,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaPropostadeValor/').set(listaPropostadeValor)
           this.postiteditpv = false
         }
+        this.color = "orange"
       },
       saverec () {
         if (this.editedIndex > -1) {
@@ -1132,6 +1180,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaRelacaoCliente/').set(listaRelacaoCliente)
           this.postiteditrec = false
         }
+        this.color = "orange"
       },
       saveca () {
         if (this.editedIndex > -1) {
@@ -1144,6 +1193,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaCanais/').set(listaCanais)
           this.postiteditca = false
         }
+        this.color = "orange"
       },
       savesm () {
         if (this.editedIndex > -1) {
@@ -1156,6 +1206,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaSegmento/').set(listaSegmento)
           this.postiteditsm = false
         }
+        this.color = "orange"
       },
       saveec () {
         if (this.editedIndex > -1) {
@@ -1168,6 +1219,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaEstruturadeCusto/').set(listaEstruturadeCusto)
           this.postiteditec = false
         }
+        this.color = "orange"
       },
       savefr () {
         if (this.editedIndex > -1) {
@@ -1180,6 +1232,7 @@
           firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvas/listaFontedeRenda/').set(listaFontedeRenda)
           this.postiteditfr = false
         }
+        this.color = "orange"
       },
       blueitem (editedItem) {
         this.color = 'light-blue-13'
