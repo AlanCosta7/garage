@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
-
 export default {
   name: 'PageIndex',
   meta: {
@@ -84,7 +82,7 @@ export default {
     }
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
+    this.$firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$router.push('/')
         this.$store.dispatch('carregarUsuario')
@@ -124,7 +122,7 @@ export default {
         descricao: this.descricao
       }
 
-      var newPostKey = firebase
+      var newPostKey = this.$firebase
         .database()
         .ref()
         .child('posts')
@@ -134,14 +132,14 @@ export default {
       updates['/usuarios/' + uid + '/user/projeto/' + newPostKey] = userData
       this.addprojeto = false
       var key = newPostKey
-      return firebase
+      return this.$firebase
         .database()
         .ref()
         .update(updates)
         .then(data => {
           const key = newPostKey
           var uid = this.user.uid
-          firebase
+          this.$firebase
             .database()
             .ref('/usuarios/' + uid + '/user/projeto/' + key)
             .update({ key: key })

@@ -51,8 +51,6 @@
     </template>
     
     <script>
-import * as firebase from 'firebase'
-
 export default {
   meta: { title: 'garage thinking - perfil' },
   data() {
@@ -88,7 +86,7 @@ export default {
       var uid = this.user.uid
       updates['/usuarios/' + uid + '/user'] = userData
 
-      return firebase
+      return this.$firebase
         .database()
         .ref()
         .update(updates)
@@ -96,7 +94,7 @@ export default {
           var uid = this.user.uid
           const filename = this.image.name
           const ext = filename.slice(filename.lastIndexOf('.'))
-          firebase
+          this.$firebase
             .storage()
             .ref('user/' + uid + ext)
             .put(this.image)
@@ -104,7 +102,7 @@ export default {
               console.log('Uploaded', snapshot.totalBytes, 'bytes.')
               snapshot.ref.getDownloadURL().then(function(url) {
                 console.log('File available at', url)
-                firebase
+                this.$firebase
                   .database()
                   .ref('/usuarios/' + uid + '/user')
                   .update({ imageUrl: url, image: url })

@@ -154,276 +154,318 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
-
 export default {
-    name: 'pageBtn',
-      data () {
-        return {
-            ideia: '',
-            prototipo: '',
-            postitpc: false,
-            postiteditpc: false,
-            postiteditproto: false,
-            postitproto: false,
-            color: 'orange',
-            editedIndex: -1,
-            editedItem: {},
-            item: '',
-            lista: [],
-        }
-      },    
-      mounted() {
-        if (this.$store.getters.myProject.key == null || this.$store.getters.myProject.key == undefined || this.$store.getters.myProject.key == '') {
-        this.$router.push("/")  
-        } 
-      },
-      updated () {
-        var key = this.myProject.key
-        var uid = this.user.uid
-                firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/').update(
-                    {descobrir: this.listaDiamante,
-                    desenvolver: this.listaPrototipo}
-                )
-        },
-    methods : {   
-      helpe () {
-        this.$q.dialog({
-          title: 'Como usar?',
-          message: 'O Double Diamond é dividido em 4 etapas. Na primeira, você e sua equipe devem criar o maior número de ideias, das mais óbvias até as mais loucas. Você pode editar sempre que necessário. Use as cores para organizar as ideias em categorias e avalie as ideias. Aquelas que vocês definirem como fundamentais para a solução avaliem com 5 estrelas para que fiquem registradas na definição. Com as ideias definidas inicie o processo de desenvolvimento, mais uma oportunidade de expandir possibilidades. Use o mesmo recurso da avaliação para definir o que será entregue ao seu usuário'
-        })
-      },
-      onOkpc () {
-        var key = this.myProject.key
-        var uid = this.user.uid
-        var userData = {
-          ideia: this.ideia, 
-          color: this.color
-        }
-        var newIdeiaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/').push().key    
-        var updates = {}    
-            var uid = this.user.uid
-            var key = this.myProject.key
-            updates['usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/' + newIdeiaKey] = userData
-            this.ideia = ''
-            this.postitpc = false
-            return firebase.database().ref().update(updates)
-      },
-      onOkproto () {
-        var key = this.myProject.key
-        var uid = this.user.uid
-        var userData = {
-          prototipo: this.prototipo, 
-          color: this.color
-        }
-        var newProtoKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/').push().key    
-        var updates = {}    
-            var uid = this.user.uid
-            var key = this.myProject.key
-            updates['usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/' + newProtoKey] = userData
-            this.prototipo = ''
-            this.postitproto = false
-            return firebase.database().ref().update(updates)
-      },
-      blueitem (editedItem) {
-        this.color = 'light-blue-13'
-        editedItem.color = 'light-blue-13'
-      },
-      greenitem (editedItem) {
-        this.color = 'light-green'
-        editedItem.color = 'light-green'
-      },
-      reditem (editedItem) {
-        this.color = 'red-6'
-        editedItem.color = 'red-6'
-      },
-      amberitem (editedItem) {
-        this.color = 'orange'
-        editedItem.color = 'orange'
-      },
-      edititempc (item) {
-        this.editedIndex = this.listaDiamante.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.color = this.editedItem.color
-        this.postiteditpc = true
-      },
-      edititemproto (item) {
-        this.editedIndex = this.listaPrototipo.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.color = this.editedItem.color
-        this.postiteditproto = true
-      },
-      deleteitempc (item) {
-        this.savepc()
-        var keyitem = this.editedIndex
-        var uid = this.user.uid
-        var key = this.myProject.key
-        if (this.listaDiamante.length > 1) {
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/' + keyitem).remove()
-          this.postiteditpc = false
-        } else if (this.listaDiamante.length == 1) {
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/').update({descobrir: ""})
-          this.postiteditpc = false
-        }
-      },
-      deleteitemproto (item) {
-        this.saveproto()
-        var keyitem = this.editedIndex
-        var uid = this.user.uid
-        var key = this.myProject.key
-        if (this.listaPrototipo.length > 1) {
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/' + keyitem).remove()
-          this.postiteditproto = false
-        } else if (this.listaPrototipo.length == 1) {
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/').update({desenvolver: ""})
-          this.postiteditproto = false
-        }
-      },
-      savepc () {
-        if (this.editedIndex > -1) {
-
-          var listaDiamante = this.listaDiamante
-          Object.assign(listaDiamante[this.editedIndex], this.editedItem)
-          listaDiamante[this.editedIndex].color = this.color
-          var uid = this.user.uid
-          var key = this.myProject.key
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/').set(listaDiamante)
-          this.postiteditpc = false
-        }
-        this.color = "orange"
-      },
-      saveproto () {
-        if (this.editedIndex > -1) {
-          var listaPrototipo = this.listaPrototipo
-          Object.assign(listaPrototipo[this.editedIndex], this.editedItem)
-          listaPrototipo[this.editedIndex].color = this.color
-          var uid = this.user.uid
-          var key = this.myProject.key
-          firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/').set(listaPrototipo)
-          this.postiteditproto = false
-        }
-        this.color = "orange"
+  name: 'pageBtn',
+  data() {
+    return {
+      ideia: '',
+      prototipo: '',
+      postitpc: false,
+      postiteditpc: false,
+      postiteditproto: false,
+      postitproto: false,
+      color: 'orange',
+      editedIndex: -1,
+      editedItem: {},
+      item: '',
+      lista: []
+    }
+  },
+  mounted() {
+    if (
+      this.$store.getters.myProject.key == null ||
+      this.$store.getters.myProject.key == undefined ||
+      this.$store.getters.myProject.key == ''
+    ) {
+      this.$router.push('/')
+    }
+  },
+  updated() {
+    var key = this.myProject.key
+    var uid = this.user.uid
+    this.$firebase
+      .database()
+      .ref()
+      .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/')
+      .update({
+        descobrir: this.listaDiamante,
+        desenvolver: this.listaPrototipo
+      })
+  },
+  methods: {
+    helpe() {
+      this.$q.dialog({
+        title: 'Como usar?',
+        message:
+          'O Double Diamond é dividido em 4 etapas. Na primeira, você e sua equipe devem criar o maior número de ideias, das mais óbvias até as mais loucas. Você pode editar sempre que necessário. Use as cores para organizar as ideias em categorias e avalie as ideias. Aquelas que vocês definirem como fundamentais para a solução avaliem com 5 estrelas para que fiquem registradas na definição. Com as ideias definidas inicie o processo de desenvolvimento, mais uma oportunidade de expandir possibilidades. Use o mesmo recurso da avaliação para definir o que será entregue ao seu usuário'
+      })
+    },
+    onOkpc() {
+      var key = this.myProject.key
+      var uid = this.user.uid
+      var userData = {
+        ideia: this.ideia,
+        color: this.color
+      }
+      var newIdeiaKey = this.$firebase
+        .database()
+        .ref()
+        .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/')
+        .push().key
+      var updates = {}
+      var uid = this.user.uid
+      var key = this.myProject.key
+      updates['usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/' + newIdeiaKey] = userData
+      this.ideia = ''
+      this.postitpc = false
+      return this.$firebase
+        .database()
+        .ref()
+        .update(updates)
+    },
+    onOkproto() {
+      var key = this.myProject.key
+      var uid = this.user.uid
+      var userData = {
+        prototipo: this.prototipo,
+        color: this.color
+      }
+      var newProtoKey = this.$firebase
+        .database()
+        .ref()
+        .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/')
+        .push().key
+      var updates = {}
+      var uid = this.user.uid
+      var key = this.myProject.key
+      updates['usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/' + newProtoKey] = userData
+      this.prototipo = ''
+      this.postitproto = false
+      return this.$firebase
+        .database()
+        .ref()
+        .update(updates)
+    },
+    blueitem(editedItem) {
+      this.color = 'light-blue-13'
+      editedItem.color = 'light-blue-13'
+    },
+    greenitem(editedItem) {
+      this.color = 'light-green'
+      editedItem.color = 'light-green'
+    },
+    reditem(editedItem) {
+      this.color = 'red-6'
+      editedItem.color = 'red-6'
+    },
+    amberitem(editedItem) {
+      this.color = 'orange'
+      editedItem.color = 'orange'
+    },
+    edititempc(item) {
+      this.editedIndex = this.listaDiamante.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.color = this.editedItem.color
+      this.postiteditpc = true
+    },
+    edititemproto(item) {
+      this.editedIndex = this.listaPrototipo.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.color = this.editedItem.color
+      this.postiteditproto = true
+    },
+    deleteitempc(item) {
+      this.savepc()
+      var keyitem = this.editedIndex
+      var uid = this.user.uid
+      var key = this.myProject.key
+      if (this.listaDiamante.length > 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/' + keyitem)
+          .remove()
+        this.postiteditpc = false
+      } else if (this.listaDiamante.length == 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/')
+          .update({ descobrir: '' })
+        this.postiteditpc = false
       }
     },
-    computed: {
-        loading () {
-          return this.$store.getters.loading
-        },
-        error () {
-          return this.$store.getters.error 
-        },
-        usuario () {
-          return this.$store.getters.usuario
-        },
-        user() {
-          return this.$store.getters.user      
-        },
-        myProject () {
-          return this.$store.getters.myProject
-        },
-        listaDiamante () {
-            return this.$store.getters.listaDiamante            
-        },
-        listaPrototipo () {
-            return this.$store.getters.listaPrototipo            
-        },
-        diamante () {
-          var listaDiamante = this.listaDiamante  
-          var diamante = []
-            for (var i = 0; i < listaDiamante.length; i++) {
-                if (listaDiamante[i].valor == 5 )  {
-                diamante.push(listaDiamante[i])
-                }
-            }
-            return diamante
-        },
-        entrega () {
-          var listaPrototipo = this.listaPrototipo  
-          var entrega = []
-            for (var i = 0; i < listaPrototipo.length; i++) {
-                if (listaPrototipo[i].valor == 5 )  {
-                    entrega.push(listaPrototipo[i])
-                }
-            }
-            return entrega
-        }
-        
+    deleteitemproto(item) {
+      this.saveproto()
+      var keyitem = this.editedIndex
+      var uid = this.user.uid
+      var key = this.myProject.key
+      if (this.listaPrototipo.length > 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/' + keyitem)
+          .remove()
+        this.postiteditproto = false
+      } else if (this.listaPrototipo.length == 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/')
+          .update({ desenvolver: '' })
+        this.postiteditproto = false
+      }
+    },
+    savepc() {
+      if (this.editedIndex > -1) {
+        var listaDiamante = this.listaDiamante
+        Object.assign(listaDiamante[this.editedIndex], this.editedItem)
+        listaDiamante[this.editedIndex].color = this.color
+        var uid = this.user.uid
+        var key = this.myProject.key
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/descobrir/')
+          .set(listaDiamante)
+        this.postiteditpc = false
+      }
+      this.color = 'orange'
+    },
+    saveproto() {
+      if (this.editedIndex > -1) {
+        var listaPrototipo = this.listaPrototipo
+        Object.assign(listaPrototipo[this.editedIndex], this.editedItem)
+        listaPrototipo[this.editedIndex].color = this.color
+        var uid = this.user.uid
+        var key = this.myProject.key
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/duplodiamante/desenvolver/')
+          .set(listaPrototipo)
+        this.postiteditproto = false
+      }
+      this.color = 'orange'
+    }
   },
-}    
+  computed: {
+    loading() {
+      return this.$store.getters.loading
+    },
+    error() {
+      return this.$store.getters.error
+    },
+    usuario() {
+      return this.$store.getters.usuario
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    myProject() {
+      return this.$store.getters.myProject
+    },
+    listaDiamante() {
+      return this.$store.getters.listaDiamante
+    },
+    listaPrototipo() {
+      return this.$store.getters.listaPrototipo
+    },
+    diamante() {
+      var listaDiamante = this.listaDiamante
+      var diamante = []
+      for (var i = 0; i < listaDiamante.length; i++) {
+        if (listaDiamante[i].valor == 5) {
+          diamante.push(listaDiamante[i])
+        }
+      }
+      return diamante
+    },
+    entrega() {
+      var listaPrototipo = this.listaPrototipo
+      var entrega = []
+      for (var i = 0; i < listaPrototipo.length; i++) {
+        if (listaPrototipo[i].valor == 5) {
+          entrega.push(listaPrototipo[i])
+        }
+      }
+      return entrega
+    }
+  }
+}
 </script>
 
 <style>
-    
-    .blue {
-      background: #00b0ff
-    }
-    .red {
-      background: #f44336
-    }
-    .green {
-      background: #8bc34a
-    }
-    .amber {
-      background: rgb(255, 152, 0)
-    }
-    #corpo {
-      background-color: rgb(255, 152, 0);
-      padding: 15%;
-      border-radius: 10px     
-    }
-    .botoes {
-      background-color: transparent
-    }
-    .btncolor {
-      margin: 2%
-    }
-    h6 {
-      font-size: 0.75em;
-      color: gray
-    }
-    .bg {
-      background-color: rgb(232, 234, 246);
-    }
-    .btn-postit {
-      margin-top: 15px
-    }
-      .duplodiam {
-          margin-top: 10px;
-          margin-bottom: 10px;
-          border-radius: 10px;
-          padding: 2%;
-          padding-top: 0;
-          color: black
-      }
-      .postitextdd {
-        min-width: 100px;
-        max-width: 300px;
-        min-height: 100px;
-        max-height: 300px;
-        padding: 10px;
-      }
-      .card {
-        padding: 8%;
-        border-radius: 10px
-      }
-      .modal:not(.maximized) {
-      background: rgba(0,0,0,0.7);
-      }
-      .cab {
-        height: 45px;
-      }
-      .item {
-        padding-top: 10px;
-      }
-      .canvas {
-        padding: 5%;
-        padding-top: 0;
-    }
-    .personas {
-        padding: 10%;
-        padding-top: 0;
-    }
-    .problema {
-      padding: 2%
-    }
+.blue {
+  background: #00b0ff;
+}
+.red {
+  background: #f44336;
+}
+.green {
+  background: #8bc34a;
+}
+.amber {
+  background: rgb(255, 152, 0);
+}
+#corpo {
+  background-color: rgb(255, 152, 0);
+  padding: 15%;
+  border-radius: 10px;
+}
+.botoes {
+  background-color: transparent;
+}
+.btncolor {
+  margin: 2%;
+}
+h6 {
+  font-size: 0.75em;
+  color: gray;
+}
+.bg {
+  background-color: rgb(232, 234, 246);
+}
+.btn-postit {
+  margin-top: 15px;
+}
+.duplodiam {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 2%;
+  padding-top: 0;
+  color: black;
+}
+.postitextdd {
+  min-width: 100px;
+  max-width: 300px;
+  min-height: 100px;
+  max-height: 300px;
+  padding: 10px;
+}
+.card {
+  padding: 8%;
+  border-radius: 10px;
+}
+.modal:not(.maximized) {
+  background: rgba(0, 0, 0, 0.7);
+}
+.cab {
+  height: 45px;
+}
+.item {
+  padding-top: 10px;
+}
+.canvas {
+  padding: 5%;
+  padding-top: 0;
+}
+.personas {
+  padding: 10%;
+  padding-top: 0;
+}
+.problema {
+  padding: 2%;
+}
 </style>

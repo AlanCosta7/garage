@@ -185,213 +185,233 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
-  
 export default {
   name: 'PagePersonas',
-    data () {
-      return {
-        deletar: false, 
-        editedIndex: -1,
-        editedItem: {},
-        item: '',
-        listaUsuarios: this.$store.getters.listaUsuarios,
-        image: null,
+  data() {
+    return {
+      deletar: false,
+      editedIndex: -1,
+      editedItem: {},
+      item: '',
+      listaUsuarios: this.$store.getters.listaUsuarios,
+      image: null,
+      imageUrl: '../../statics/perfil.jpg',
+      uid: this.$store.getters.user.uid,
+      nome: '',
+      funcao: '',
+      frase: '',
+      idade: '',
+      demografia: '',
+      comportamento: '',
+      dores: '',
+      solucoes: ''
+    }
+  },
+  mounted() {
+    if (
+      this.$store.getters.myProject.key == null ||
+      this.$store.getters.myProject.key == undefined ||
+      this.$store.getters.myProject.key == ''
+    ) {
+      this.$router.push('/')
+    }
+  },
+  methods: {
+    onPersonas() {
+      var key = this.myProject.key
+      var uid = this.user.uid
+      var userData = {
+        nome: this.nome,
         imageUrl: '../../statics/perfil.jpg',
-        uid: this.$store.getters.user.uid,
-        nome: '',
-        funcao: '',
-        frase: '',
-        idade: '',
-        demografia: '',
-        comportamento: '',
-        dores: '',
-        solucoes: '',
+        funcao: this.funcao,
+        frase: this.frase,
+        idade: this.idade,
+        demografia: this.demografia,
+        comportamento: this.comportamento,
+        dores: this.dores,
+        solucoes: this.solucoes
+      }
+      var newPersonaKey = this.$firebase
+        .database()
+        .ref()
+        .child('usuarios/' + uid + '/user/projeto/' + key + '/personas/')
+        .push().key
+      var updates = {}
+      var uid = this.user.uid
+      var key = this.myProject.key
+      updates['usuarios/' + uid + '/user/projeto/' + key + '/personas/' + newPersonaKey] = userData
+      this.nome = ''
+      ;(this.imageUrl = '../../assets/perfil.jpg'), (this.funcao = '')
+      this.frase = ''
+      this.idade = ''
+      this.demografia = ''
+      this.comportamento = ''
+      this.dores = ''
+      this.solucoes = ''
+
+      var keyPersona = newPersonaKey
+      return this.$firebase
+        .database()
+        .ref()
+        .update(updates)
+        .then(
+          this.$firebase
+            .database()
+            .ref('usuarios/' + uid + '/user/projeto/' + key + '/personas/' + keyPersona)
+            .update({ key: keyPersona })
+        )
+        .catch(function(error) {
+          // [START onfailure]
+          console.error('Upload failed:', error)
+          // [END onfailure]
+        })
+    },
+    onDismissed() {
+      this.$store.dispatch('clearError')
+    },
+    clearPersona() {
+      this.nome = ''
+      ;(this.imageUrl = '../../assets/perfil.jpg'), (this.funcao = '')
+      this.frase = ''
+      this.idade = ''
+      this.demografia = ''
+      this.comportamento = ''
+      this.dores = ''
+      this.solucoes = ''
+    },
+    veritem(item) {
+      this.nome = item.nome
+      this.funcao = item.funcao
+      this.frase = item.frase
+      this.idade = item.idade
+      this.demografia = item.demografia
+      this.comportamento = item.comportamento
+      this.dores = item.dores
+      this.solucoes = item.solucoes
+    },
+    del(item) {
+      this.editedIndex = this.listaPersonas.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.deletar = true
+    },
+    onOk() {
+      this.save()
+      var keyitem = this.editedIndex
+      var uid = this.user.uid
+      var key = this.myProject.key
+      if (this.listaPersonas.length > 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/personas/' + keyitem)
+          .remove()
+        this.nome = ''
+        ;(this.imageUrl = '../../assets/perfil.jpg'), (this.funcao = '')
+        this.frase = ''
+        this.idade = ''
+        this.demografia = ''
+        this.comportamento = ''
+        this.dores = ''
+        this.solucoes = ''
+        this.deletar = false
+      } else if (this.listaPersonas.length == 1) {
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key)
+          .update({ personas: '' })
+        this.nome = ''
+        ;(this.imageUrl = '../../assets/perfil.jpg'), (this.funcao = '')
+        this.frase = ''
+        this.idade = ''
+        this.demografia = ''
+        this.comportamento = ''
+        this.dores = ''
+        this.solucoes = ''
+        this.deletar = false
       }
     },
-    mounted() {
-      if (this.$store.getters.myProject.key == null || this.$store.getters.myProject.key == undefined || this.$store.getters.myProject.key == '') {
-      this.$router.push("/")  
-      } 
+    onCancel() {
+      this.deletar = false
     },
-    methods: {
-        onPersonas () {
-            var key = this.myProject.key
-            var uid = this.user.uid
-            var userData = {
-                    nome: this.nome,
-                    imageUrl: '../../statics/perfil.jpg',
-                    funcao: this.funcao,
-                    frase: this.frase,
-                    idade: this.idade,
-                    demografia: this.demografia,
-                    comportamento: this.comportamento,
-                    dores: this.dores,
-                    solucoes: this.solucoes,
-            }
-            var newPersonaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/personas/').push().key   
-            var updates = {}    
-                var uid = this.user.uid
-                var key = this.myProject.key
-                updates['usuarios/' + uid + '/user/projeto/' + key + '/personas/' + newPersonaKey] = userData
-                    this.nome = ''
-                    this.imageUrl = '../../assets/perfil.jpg',
-                    this.funcao = ''
-                    this.frase = ''
-                    this.idade = ''
-                    this.demografia = ''
-                    this.comportamento = ''
-                    this.dores = ''
-                    this.solucoes = ''
-
-                var keyPersona = newPersonaKey
-                return firebase.database().ref().update(updates)
-                .then(
-                 firebase.database().ref('usuarios/' + uid + '/user/projeto/' + key + '/personas/' + keyPersona).update({key: keyPersona})
-                )
-                .catch(function(error) {
-                    // [START onfailure]
-                    console.error('Upload failed:', error);
-                    // [END onfailure]
-                })
-        },
-        onDismissed () {
-            this.$store.dispatch('clearError')
-        },
-        clearPersona () {
-            this.nome = ''
-            this.imageUrl = '../../assets/perfil.jpg',
-            this.funcao = ''
-            this.frase = ''
-            this.idade = ''
-            this.demografia = ''
-            this.comportamento = ''
-            this.dores = ''
-            this.solucoes = ''
-        },
-        veritem (item) {
-            this.nome = item.nome
-            this.funcao = item.funcao
-            this.frase = item.frase
-            this.idade = item.idade
-            this.demografia = item.demografia
-            this.comportamento = item.comportamento
-            this.dores = item.dores
-            this.solucoes = item.solucoes
-        },
-        del (item) {
-            this.editedIndex = this.listaPersonas.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.deletar = true
-        },
-        onOk () {
-            this.save()
-            var keyitem = this.editedIndex
-            var uid = this.user.uid
-            var key = this.myProject.key
-            if (this.listaPersonas.length > 1) {
-            firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/personas/' + keyitem).remove()
-                this.nome = ''
-                this.imageUrl = '../../assets/perfil.jpg',
-                this.funcao = ''
-                this.frase = ''
-                this.idade = ''
-                this.demografia = ''
-                this.comportamento = ''
-                this.dores = ''
-                this.solucoes = ''    
-                this.deletar = false
-              } else if (this.listaPersonas.length == 1) {
-            firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key).update({personas: ""})
-                this.nome = ''
-                this.imageUrl = '../../assets/perfil.jpg',
-                this.funcao = ''
-                this.frase = ''
-                this.idade = ''
-                this.demografia = ''
-                this.comportamento = ''
-                this.dores = ''
-                this.solucoes = ''
-                this.deletar = false
-            }
-        },
-        onCancel () {
-            this.deletar = false
-        },
-        save () {
-            if (this.editedIndex > -1) {
-                var keyitem = this.editedIndex
-                var listaPersonas = this.listaPersonas
-                Object.assign(listaPersonas[this.editedIndex], this.editedItem)
-                var uid = this.user.uid
-                var key = this.myProject.key
-                firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/personas/').set(listaPersonas)
-            }
-        },
+    save() {
+      if (this.editedIndex > -1) {
+        var keyitem = this.editedIndex
+        var listaPersonas = this.listaPersonas
+        Object.assign(listaPersonas[this.editedIndex], this.editedItem)
+        var uid = this.user.uid
+        var key = this.myProject.key
+        this.$firebase
+          .database()
+          .ref()
+          .child('usuarios/' + uid + '/user/projeto/' + key + '/personas/')
+          .set(listaPersonas)
+      }
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading
     },
-    computed: {
-        loading () {
-            return this.$store.getters.loading
-        },
-        error () {
-            return this.$store.getters.error
-        },
-        usuario () {
-            return this.$store.getters.usuario
-        },
-        user() {
-            return this.$store.getters.user      
-        },
-        myProject () {
-            return this.$store.getters.myProject
-        },
-        listaPersonas () {
-            return this.$store.getters.listaPersonas
-        }
-    } 
-}     
+    error() {
+      return this.$store.getters.error
+    },
+    usuario() {
+      return this.$store.getters.usuario
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    myProject() {
+      return this.$store.getters.myProject
+    },
+    listaPersonas() {
+      return this.$store.getters.listaPersonas
+    }
+  }
+}
 </script>
 
 <style>
-    .personas {
-        padding: 10%;
-        padding-top: 0;
-    }
-    .quadrante {
-        width: 270px;
-        padding: 10px;
-        margin: 5px;
-        background-color: rgb(232, 234, 246)
-    }
-    .listper {
-        width: 270px;
-        padding: 10px;
-        margin: 5px;
-        margin-top: 0;
-        background-color: rgb(232, 234, 246)
-    }
-    .imageUrl {
-        object-fit: cover;
-        width: 150px;
-        height: 150px;
-    }
-    .imagempersona {
-        object-fit: cover;
-        border-radius: 100%;
-        width: 50px;
-        height: 50px;
-        margin-left: 2%;
-        margin-right: 2%
-    }
-    .colh6 {
-        margin-top: 0;
-        margin-bottom: 5px 
-    }
-    .btnp {
-        margin-right: 10px;
-    }
-    .per {
-        width: 100%;
-        margin-top: 30%
-    }
+.personas {
+  padding: 10%;
+  padding-top: 0;
+}
+.quadrante {
+  width: 270px;
+  padding: 10px;
+  margin: 5px;
+  background-color: rgb(232, 234, 246);
+}
+.listper {
+  width: 270px;
+  padding: 10px;
+  margin: 5px;
+  margin-top: 0;
+  background-color: rgb(232, 234, 246);
+}
+.imageUrl {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+}
+.imagempersona {
+  object-fit: cover;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.colh6 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.btnp {
+  margin-right: 10px;
+}
+.per {
+  width: 100%;
+  margin-top: 30%;
+}
 </style>

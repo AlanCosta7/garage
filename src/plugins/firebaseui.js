@@ -1,5 +1,5 @@
 import firebaseui from 'firebaseui'
 
 export default ({ Vue }) => {
-Vue.use(firebaseui)
+    Vue.prototype.$firebaseui = new firebaseui.auth.AuthUI(Vue.prototype.$firebase.auth())
 }

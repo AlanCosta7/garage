@@ -9,9 +9,6 @@
 </template>
 
 <script>
-import * as firebase from 'firebase'
-import firebaseui from 'firebaseui'
-
 export default {
   name: 'PageLogin',
   meta: { title: 'garage thinking - login' },
@@ -22,9 +19,9 @@ export default {
     var uiConfig = {
       signInSuccessUrl: '/',
       signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        this.$firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        this.$firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        this.$firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
       callbacks: {
         uiShown: function() {
@@ -48,8 +45,7 @@ export default {
         }
       }
     }
-    var ui = new firebaseui.auth.AuthUI(firebase.auth())
-    ui.start('#firebaseui-auth-container', uiConfig)
+    this.$firebaseui.start('#firebaseui-auth-container', uiConfig)
   }
 }
 </script>
