@@ -447,8 +447,6 @@
       </template>
     
       <script>
-      import * as firebase from 'firebase'
-      
       export default {
         name: 'PageCanvavalor',
         data () {
@@ -541,14 +539,14 @@
               produtoservico: this.produtoservico, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/' + newCanvaKey] = userData
                 this.produtoservico = ''
                 this.postitpca = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           onOkaca () {
             var key = this.myProject.key
@@ -557,14 +555,14 @@
               criadoresganho: this.criadoresganho, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/' + newCanvaKey] = userData
                 this.criadoresganho = ''
                 this.postitaca = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           onOkrca () {
             var key = this.myProject.key
@@ -573,14 +571,14 @@
               analgesico: this.analgesico, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/' + newCanvaKey] = userData
                 this.analgesico = ''
                 this.postitrca = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           onOkreca () {
             var key = this.myProject.key
@@ -589,14 +587,14 @@
               ganhos: this.ganhos, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/' + newCanvaKey] = userData
                 this.ganhos = ''
                 this.postitreca = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           onOkcaa () {
             var key = this.myProject.key
@@ -605,14 +603,14 @@
               dores: this.dores, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/' + newCanvaKey] = userData
                 this.dores = ''
                 this.postitcaa = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           onOksma () {
             var key = this.myProject.key
@@ -621,14 +619,14 @@
               tarefas: this.tarefas, 
               color: this.color
             }
-            var newCanvaKey = firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').push().key    
+            var newCanvaKey = this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').push().key    
             var updates = {}    
                 var uid = this.user.uid
                 var key = this.myProject.key
                 updates['usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/' + newCanvaKey] = userData
                 this.tarefas = ''
                 this.postitsma = false
-                return firebase.database().ref().update(updates)
+                return this.$firebase.database().ref().update(updates)
           },
           deleteitempca (item) {
             this.savepca()
@@ -636,10 +634,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaProdutoservico.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/' + keyitem).remove()
               this.postiteditpca = false
             } else if (this.listaProdutoservico.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaProdutoservico: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaProdutoservico: ""})
               this.postiteditpca = false
             }
           },
@@ -649,10 +647,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaCriadoresganho.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/' + keyitem).remove()
               this.postiteditaca = false
             } else if (this.listaCriadoresganho.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaCriadoresganho: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaCriadoresganho: ""})
               this.postiteditaca = false
             }
           },
@@ -662,10 +660,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaAnalgesico.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/' + keyitem).remove()
               this.postiteditrca = false
             } else if (this.listaAnalgesico.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaAnalgesico: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaAnalgesico: ""})
               this.postiteditrca = false
             }
           },
@@ -675,10 +673,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaGanhos.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/' + keyitem).remove()
               this.postiteditreca = false
             } else if (this.listaGanhos.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaGanhos: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaGanhos: ""})
               this.postiteditreca = false
             }
           },
@@ -688,10 +686,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaDores.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/' + keyitem).remove()
               this.postiteditcaa = false
             } else if (this.listaDores.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaDores: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaDores: ""})
               this.postiteditcaa = false
             }
           },
@@ -701,10 +699,10 @@
             var uid = this.user.uid
             var key = this.myProject.key
             if (this.listaTarefas.length > 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/' + keyitem).remove()
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/' + keyitem).remove()
               this.postiteditsma = false
             } else if (this.listaTarefas.length == 1) {
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaTarefas: ""})
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/').update({listaTarefas: ""})
               this.postiteditsma = false
             }
           },
@@ -752,7 +750,7 @@
               listaProdutoservico[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/').set(listaProdutoservico)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaProdutoservico/').set(listaProdutoservico)
               this.postiteditpca = false
             }
         this.color = "orange"
@@ -765,7 +763,7 @@
               listaCriadoresganho[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').set(listaCriadoresganho)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaCriadoresganho/').set(listaCriadoresganho)
               this.postiteditaca = false
             }
         this.color = "orange"
@@ -778,7 +776,7 @@
               listaAnalgesico[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/').set(listaAnalgesico)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaAnalgesico/').set(listaAnalgesico)
               this.postiteditrca = false
             }
         this.color = "orange"
@@ -791,7 +789,7 @@
               listaGanhos[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/').set(listaGanhos)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaGanhos/').set(listaGanhos)
               this.postiteditreca = false
             }
         this.color = "orange"
@@ -804,7 +802,7 @@
               listaDores[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/').set(listaDores)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaDores/').set(listaDores)
               this.postiteditcaa = false
             }
         this.color = "orange"
@@ -817,7 +815,7 @@
               listaTarefas[this.editedIndex].color = this.color
               var uid = this.user.uid
               var key = this.myProject.key
-              firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').set(listaTarefas)
+              this.$firebase.database().ref().child('usuarios/' + uid + '/user/projeto/' + key + '/canvasvalor/listaTarefas/').set(listaTarefas)
               this.postiteditsma = false
             }
         this.color = "orange"

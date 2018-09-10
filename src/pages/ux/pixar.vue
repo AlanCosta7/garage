@@ -95,70 +95,75 @@
 </template>
 
 <script>
-  import * as firebase from 'firebase'
-  
-  export default {
-    name: 'PagePixar',
-    data () {
-      return {
-        pixar1: this.$store.getters.pixar[0][0],
-        pixar2: this.$store.getters.pixar[0][1],
-        pixar3: this.$store.getters.pixar[0][2],
-        pixar4: this.$store.getters.pixar[0][3],
-        pixar5: this.$store.getters.pixar[0][4],
-        pixar6: this.$store.getters.pixar[0][5],
-      }
-    },
-    methods: {
-      onPixar () { 
-        var uid = this.user.uid
-        var keyprojeto = this.myProject.key
+export default {
+  name: 'PagePixar',
+  data() {
+    return {
+      pixar1: this.$store.getters.pixar[0][0],
+      pixar2: this.$store.getters.pixar[0][1],
+      pixar3: this.$store.getters.pixar[0][2],
+      pixar4: this.$store.getters.pixar[0][3],
+      pixar5: this.$store.getters.pixar[0][4],
+      pixar6: this.$store.getters.pixar[0][5]
+    }
+  },
+  methods: {
+    onPixar() {
+      var uid = this.user.uid
+      var keyprojeto = this.myProject.key
 
-        firebase.database().ref('usuarios/' + uid + '/user/projeto/' + keyprojeto + '/pixar/').set({
-            pixar1: this.pixar1,
-            pixar2: this.pixar2,
-            pixar3: this.pixar3,
-            pixar4: this.pixar4,
-            pixar5: this.pixar5,
-            pixar6: this.pixar6}) 
-            
-      }
+      this.$firebase
+        .database()
+        .ref('usuarios/' + uid + '/user/projeto/' + keyprojeto + '/pixar/')
+        .set({
+          pixar1: this.pixar1,
+          pixar2: this.pixar2,
+          pixar3: this.pixar3,
+          pixar4: this.pixar4,
+          pixar5: this.pixar5,
+          pixar6: this.pixar6
+        })
+    }
+  },
+  mounted() {
+    if (
+      this.$store.getters.myProject.key == null ||
+      this.$store.getters.myProject.key == undefined ||
+      this.$store.getters.myProject.key == ''
+    ) {
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading
     },
-      mounted() {
-        if (this.$store.getters.myProject.key == null || this.$store.getters.myProject.key == undefined || this.$store.getters.myProject.key == '') {
-        this.$router.push("/")  
-        }
-      },
-    computed: {
-      loading () {
-        return this.$store.getters.loading
-      },
-      error () {
-        return this.$store.getters.error 
-      },
-      usuario () {
-        return this.$store.getters.usuario
-      },
-      user() {
-        return this.$store.getters.user      
-      },
-      myProject () {
-        return this.$store.getters.myProject
-      },
+    error() {
+      return this.$store.getters.error
     },
+    usuario() {
+      return this.$store.getters.usuario
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    myProject() {
+      return this.$store.getters.myProject
+    }
   }
+}
 </script>
 
 <style>
-    .pixar {
-        padding: 10%;
-        padding-top: 0;
-    }
-    .fabprincipal {
-      margin-top: 10px;
-      margin-left: 10px;
-    }
-    .form {
-      font-size: 1.1em
-    }
+.pixar {
+  padding: 10%;
+  padding-top: 0;
+}
+.fabprincipal {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.form {
+  font-size: 1.1em;
+}
 </style>

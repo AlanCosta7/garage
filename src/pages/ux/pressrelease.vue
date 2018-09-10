@@ -104,68 +104,74 @@
   </template>
   
   <script>
-    import * as firebase from 'firebase'
-    
-    export default {
-      name: 'PagePressRelease',
-      data () {
-        return {
-          titulo: this.$store.getters.press[0][0],
-          subtitulo: this.$store.getters.press[0][1],
-          problema: this.$store.getters.press[0][2],
-          solucao: this.$store.getters.press[0][3],
-          detalhes: this.$store.getters.press[0][4],
-          depoimento: this.$store.getters.press[0][5],
-          canal: this.$store.getters.press[0][6],
-        }
-      },
-        mounted() {
-          if (this.$store.getters.myProject.key == null || this.$store.getters.myProject.key == undefined || this.$store.getters.myProject.key == '') {
-          this.$router.push("/")  
-          } 
-        },
-      methods: {
-        onPress () { 
-          var uid = this.user.uid
-          var keyprojeto = this.myProject.key
-  
-          firebase.database().ref('usuarios/' + uid + '/user/projeto/' + keyprojeto + '/press/').set({
-              press1: this.titulo,
-              press2: this.subtitulo,
-              press3: this.problema,
-              press4: this.solucao,
-              press5: this.detalhes,
-              press6: this.depoimento,
-              press7: this.canal}) 
-        },
-      },
-    computed: {
-      loading () {
-        return this.$store.getters.loading
-      },
-      error () {
-        return this.$store.getters.error 
-      },
-      usuario () {
-        return this.$store.getters.usuario
-      },
-      user() {
-        return this.$store.getters.user      
-      },
-      myProject () {
-        return this.$store.getters.myProject
-      },
+export default {
+  name: 'PagePressRelease',
+  data() {
+    return {
+      titulo: this.$store.getters.press[0][0],
+      subtitulo: this.$store.getters.press[0][1],
+      problema: this.$store.getters.press[0][2],
+      solucao: this.$store.getters.press[0][3],
+      detalhes: this.$store.getters.press[0][4],
+      depoimento: this.$store.getters.press[0][5],
+      canal: this.$store.getters.press[0][6]
     }
+  },
+  mounted() {
+    if (
+      this.$store.getters.myProject.key == null ||
+      this.$store.getters.myProject.key == undefined ||
+      this.$store.getters.myProject.key == ''
+    ) {
+      this.$router.push('/')
+    }
+  },
+  methods: {
+    onPress() {
+      var uid = this.user.uid
+      var keyprojeto = this.myProject.key
+
+      this.$firebase
+        .database()
+        .ref('usuarios/' + uid + '/user/projeto/' + keyprojeto + '/press/')
+        .set({
+          press1: this.titulo,
+          press2: this.subtitulo,
+          press3: this.problema,
+          press4: this.solucao,
+          press5: this.detalhes,
+          press6: this.depoimento,
+          press7: this.canal
+        })
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading
+    },
+    error() {
+      return this.$store.getters.error
+    },
+    usuario() {
+      return this.$store.getters.usuario
+    },
+    user() {
+      return this.$store.getters.user
+    },
+    myProject() {
+      return this.$store.getters.myProject
+    }
+  }
 }
 </script>
   
   <style>
-      .press {
-          padding: 10%;
-          padding-top: 0
-      }
-      .fabprincipal {
-        margin-top: 10px;
-        margin-left: 10px; 
-      }
-  </style>
+.press {
+  padding: 10%;
+  padding-top: 0;
+}
+.fabprincipal {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+</style>

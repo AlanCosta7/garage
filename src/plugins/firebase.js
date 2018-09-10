@@ -1,4 +1,6 @@
 import firebase from 'firebase/app'
+import 'firebase/auth' // eslint-disable-line
+import 'firebase/database' // eslint-disable-line
 import 'firebase/firestore' // eslint-disable-line
 
 const firebaseConfig = {
