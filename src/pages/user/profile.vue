@@ -1,7 +1,7 @@
 <template>
         <q-page padding>
             <h4>Perfil</h4>
-            <form @submit.prevent="onPerfil"> 
+            <form @submit.prevent="onPerfil">
                 <q-field
                     name="nome"
                     id="nome"
@@ -12,16 +12,16 @@
                     v-model="nome"
                   />
                 </q-field><br><br>
-               
+
                 <q-field
                     icon="account_circle"
                     label="Foto perfil"
                 >
-                <img :src="imageUrl" height="150"><br> 
+                <img :src="imageUrl" height="150"><br>
                 <q-btn push color="primary" label="Upload" @click="onPickFile"></q-btn>
-                <input type="file" 
-                       style="display: none" 
-                       ref="fileInput" 
+                <input type="file"
+                       style="display: none"
+                       ref="fileInput"
                        accept="image/*"
                        @change="onFilePicked"
                 ></input>
@@ -34,11 +34,11 @@
                                push
                                label="Cancelar"
                         />
-                        <q-btn color="green" 
-                               type="submit" 
+                        <q-btn color="green"
+                               type="submit"
                                push
-                               :disabled="loading" 
-                               :loading="loading" 
+                               :disabled="loading"
+                               :loading="loading"
                                class="justify-center btnSalvar"
                                label="Enviar">
                             <span slot="loader" class="custom-loader">
@@ -49,13 +49,12 @@
             </form>
         </q-page>
     </template>
-    
+
     <script>
 export default {
   meta: { title: 'garage thinking - perfil' },
   data() {
     return {
-      listaUsuarios: this.$store.getters.listaUsuarios,
       image: null,
       imageUrl: '../../assets/perfil.jpg',
       uid: this.$store.getters.user.uid,
@@ -152,7 +151,7 @@ export default {
   }
 }
 </script>
-    
+
     <style>
 .btnmodal {
   position: absolute;
