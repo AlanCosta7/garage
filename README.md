@@ -1,6 +1,6 @@
 # garage thinking
 
-> [WIP] Acesse https://uxapp-design.firebaseapp.com e dê [seu feedback](issues/new)
+> [WIP] Acesse https://uxapp-design.firebaseapp.com e dê [seu feedback](https://github.com/AlanCosta7/garage/issues/new)
 
 
 ## Features
