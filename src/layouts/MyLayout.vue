@@ -5,7 +5,7 @@
         color="dark"
         inverted
       >
-      <q-btn flat round dense icon="menu" v-if="myProject" @click="drawerleft = !drawerleft" aria-label="Toggle menu on left side" />  
+      <q-btn flat round dense icon="menu" v-if="myProject" @click="drawerleft = !drawerleft" aria-label="Toggle menu on left side" />
 
         <q-toolbar-title>
         <div class="row"><div style="font-weight: bold">garage</div> <div style="font-weight: 50">thinking</div></div>
@@ -81,16 +81,16 @@ export default {
       return this.$store.getters.loading
     },
     error () {
-      return this.$store.getters.error 
+      return this.$store.getters.error
     },
     usuario () {
       return this.$store.getters.usuario
     },
     user() {
-      return this.$store.getters.user      
+      return this.$store.getters.user
     },
     useremail () {
-      return this.$store.getters.user[0].email            
+      return this.$store.getters.user[0].email
     },
     myProject () {
       return this.$store.getters.myProject.key
@@ -106,7 +106,7 @@ export default {
     },
     home () {
       this.$store.dispatch('setClearState')
-      this.$router.push("/")  
+      this.$router.push("/")
       this.$store.dispatch('addMyProject', '')
       this.drawerleft = false
     }

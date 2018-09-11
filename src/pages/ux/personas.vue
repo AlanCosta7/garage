@@ -1,18 +1,18 @@
 <template>
-    <q-page>    
+    <q-page>
         <q-layout class="personas">
             <h2 style="font-weight: 50">Personas</h2>
-          <div>  
+          <div>
             <div class="row flex flex-center">
-              <form @submit.prevent="onPersonas">     
-        
+              <form @submit.prevent="onPersonas">
+
                 <!-- *** primeiro quadrante *** -->
                     <div class="row">
                         <div class="quadrante">
                             <q-field
                                 name="fotoperfil"
                             >
-                            <img :src="imageUrl" class="imageUrl"><br> 
+                            <img :src="imageUrl" class="imageUrl"><br>
                             </q-field>
 
                             <q-field
@@ -22,7 +22,7 @@
                                 style="width: 350px"
                                 type="text"
                                 v-model="nome"
-                                float-label="Nome" 
+                                float-label="Nome"
                             />
                             </q-field>
 
@@ -33,7 +33,7 @@
                                 style="width: 350px"
                                 type="text"
                                 v-model="funcao"
-                                float-label="Função" 
+                                float-label="Função"
                             />
                             </q-field>
 
@@ -44,13 +44,13 @@
                                 style="width: 350px; font-style: italic"
                                 type="textarea"
                                 v-model="frase"
-                                float-label="Pensamento" 
-                                prefix='"' 
+                                float-label="Pensamento"
+                                prefix='"'
                                 suffix='"'
                             />
                             </q-field>
                         </div>
-                        
+
                         <!-- *** segundo quadrante *** -->
 
                         <div class="quadrante">
@@ -61,7 +61,7 @@
                                 style="width: 100px"
                                 type="number"
                                 v-model="idade"
-                                float-label="Idade" 
+                                float-label="Idade"
                             />
                             </q-field><br>
 
@@ -72,7 +72,7 @@
                                 style="width: 350px"
                                 type="text"
                                 v-model="demografia"
-                                float-label="Demografia" 
+                                float-label="Demografia"
                             />
                             </q-field><br>
 
@@ -83,7 +83,7 @@
                                 style="width: 350px"
                                 type="textarea"
                                 v-model="comportamento"
-                                float-label="Comportamento" 
+                                float-label="Comportamento"
                             />
                             </q-field><br>
                         </div>
@@ -100,9 +100,9 @@
                             style="min-height: 100px"
                             type="textarea"
                             v-model="dores"
-                            float-label="Dores e Necessidades" 
+                            float-label="Dores e Necessidades"
                         />
-                        </q-field><br><br> 
+                        </q-field><br><br>
                     </div>
 
                 <!-- *** quarto quadrante *** -->
@@ -115,9 +115,9 @@
                             style="min-height: 100px"
                             type="textarea"
                             v-model="solucoes"
-                            float-label="Porenciais soluções" 
+                            float-label="Porenciais soluções"
                         />
-                        </q-field><br><br> 
+                        </q-field><br><br>
                     </div>
 
                 </div><br>
@@ -136,14 +136,14 @@
                         </q-list>
                     </q-scroll-area>
                   </div>
-                </div>     
+                </div>
                 <div class="row flex flex-center">
                     <div class="col-6">
-                        <q-btn color="green" 
-                            type="submit" 
+                        <q-btn color="green"
+                            type="submit"
                             round
-                            :disabled="loading" 
-                            :loading="loading" 
+                            :disabled="loading"
+                            :loading="loading"
                             class="justify-center btnSalvar"
                             icon="done">
                         <span slot="loader" class="custom-loader">
@@ -152,10 +152,10 @@
                         </q-btn>
                     </div>
                     <div class="col-auto">
-                        <q-btn color="amber" 
+                        <q-btn color="amber"
                             @click="clearPersona()"
-                            :disabled="loading" 
-                            :loading="loading" 
+                            :disabled="loading"
+                            :loading="loading"
                             class="justify-center btnSalvar"
                             rounded
                             label="Limpar">
@@ -166,12 +166,12 @@
                     </div>
                 </div>
             </div>
-            <q-modal 
+            <q-modal
                 v-model="deletar"><br>
                 <div class="flex flex-center">
-                    <div>    
+                    <div>
                         <p>Tem certeza que quer excluir {{editedItem.nome}}?</p>
-                        <div class="row"> 
+                        <div class="row">
                         <q-btn label="Cancelar" class="col" color="red" @click="onCancel"/>
                         <q-btn label="Ok" class="col" color="green" @click="onOk"/>
                         </div>
@@ -179,7 +179,7 @@
                 </div>
             </q-modal>
 
-            
+
         </q-layout>
     </q-page>
 </template>
@@ -193,7 +193,6 @@ export default {
       editedIndex: -1,
       editedItem: {},
       item: '',
-      listaUsuarios: this.$store.getters.listaUsuarios,
       image: null,
       imageUrl: '../../statics/perfil.jpg',
       uid: this.$store.getters.user.uid,

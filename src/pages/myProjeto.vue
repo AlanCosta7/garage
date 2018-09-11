@@ -12,37 +12,36 @@ export default {
   },
   mounted() {
     if (this.$store.getters.myProject.key == null || this.$store.getters.myProject.key == undefined || this.$store.getters.myProject.key == '') {
-      this.$router.push("/")  
+      this.$router.push("/")
     }
-    this.$store.dispatch('carregarUsuario') 
-    this.$store.dispatch('addlistaParceirosChave') 
-    this.$store.dispatch('addlistaAtividadeChave') 
-    this.$store.dispatch('addlistaCanais') 
-    this.$store.dispatch('addlistaEstruturadeCusto') 
-    this.$store.dispatch('addlistaFontedeRenda') 
-    this.$store.dispatch('addlistaPropostadeValor') 
-    this.$store.dispatch('addlistaRecursosChave') 
-    this.$store.dispatch('addlistaSegmento') 
-    this.$store.dispatch('addlistaRelacaoCliente') 
+    this.$store.dispatch('carregarUsuario')
+    this.$store.dispatch('addlistaParceirosChave')
+    this.$store.dispatch('addlistaAtividadeChave')
+    this.$store.dispatch('addlistaCanais')
+    this.$store.dispatch('addlistaEstruturadeCusto')
+    this.$store.dispatch('addlistaFontedeRenda')
+    this.$store.dispatch('addlistaPropostadeValor')
+    this.$store.dispatch('addlistaRecursosChave')
+    this.$store.dispatch('addlistaSegmento')
+    this.$store.dispatch('addlistaRelacaoCliente')
 
-    this.$store.dispatch('addlistaProdutoservico') 
-    this.$store.dispatch('addlistaCriadoresganho') 
-    this.$store.dispatch('addlistaAnalgesico') 
-    this.$store.dispatch('addlistaGanhos') 
-    this.$store.dispatch('addlistaDores') 
-    this.$store.dispatch('addlistaTarefas') 
+    this.$store.dispatch('addlistaProdutoservico')
+    this.$store.dispatch('addlistaCriadoresganho')
+    this.$store.dispatch('addlistaAnalgesico')
+    this.$store.dispatch('addlistaGanhos')
+    this.$store.dispatch('addlistaDores')
+    this.$store.dispatch('addlistaTarefas')
 
-    this.$store.dispatch('addPixar') 
-    this.$store.dispatch('addPress') 
-    this.$store.dispatch('addPitch') 
-    this.$store.dispatch('addlistaPersonas') 
-    this.$store.dispatch('carregaPremissas') 
-    this.$store.dispatch('carregaEstagio') 
-    this.$store.dispatch('carregaOportunidade') 
-    this.$store.dispatch('addlistaDiamante') 
-    this.$store.dispatch('addlistaPrototipo') 
-    this.$store.dispatch('carregaListaUsuario') 
-    this.$router.push("/duplodiamante")  
+    this.$store.dispatch('addPixar')
+    this.$store.dispatch('addPress')
+    this.$store.dispatch('addPitch')
+    this.$store.dispatch('addlistaPersonas')
+    this.$store.dispatch('carregaPremissas')
+    this.$store.dispatch('carregaEstagio')
+    this.$store.dispatch('carregaOportunidade')
+    this.$store.dispatch('addlistaDiamante')
+    this.$store.dispatch('addlistaPrototipo')
+    this.$router.push("/duplodiamante")
 
   },
   computed: {
@@ -50,13 +49,13 @@ export default {
       return this.$store.getters.loading
     },
     error () {
-      return this.$store.getters.error 
+      return this.$store.getters.error
     },
     usuario () {
       return this.$store.getters.usuario
     },
     user() {
-      return this.$store.getters.user      
+      return this.$store.getters.user
     }
   },
   methods: {
@@ -95,5 +94,5 @@ export default {
     .q-layout-drawer {
       width: 100px;
     }
-  
+
 </style>
