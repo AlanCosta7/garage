@@ -61,8 +61,7 @@
           </q-card>
         </q-item>
       </q-list>
-      <q-btn class="btnadd" v-if="listaMyProject.length == 0" round color='blue-4' icon='add' @click.native='addprojeto = true'>  
-      </q-btn>
+      <q-btn class="btn-add" v-if="listaMyProject.length == 0" round color='blue-4' icon='add' @click.native='addprojeto = true'></q-btn>
     </div> 
 
   </q-page>
@@ -160,37 +159,7 @@ export default {
 </script>
 
 <style>
-.imgemCard {
-  width: 300px;
-  min-width: 50px;
-  height: 100px;
-}
-.imagcapa {
-  object-fit: cover;
-  width: 150px;
-  height: 150px;
-}
-.ecard {
-  object-fit: cover;
-  border-radius: 1em;
-  width: 200px;
-  height: 150px;
-  background-color: orangered;
-  color: white;
-}
-.btnadd {
-  margin: 5%;
-}
-.q-list {
-  border: none;
-}
-.modal-content,
-.q-modal-layout {
-  padding: 2%;
-  background-color: white;
-  height: 500px;
-  overflow: hidden;
-}
+
 .titulo {
   font-size: 1em;
   font-weight: bold;

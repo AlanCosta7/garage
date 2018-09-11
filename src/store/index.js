@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 import firebase from 'firebase/app'
+import { firebaseMutations } from 'vuexfire'
 // import { Loading, QSpinnerFacebook } from 'quasar'
 import { LocalStorage /* , SessionStorage */ } from 'quasar'
 
 Vue.use(Vuex)
 
+import projects from './projects'
+
 export default new Vuex.Store({
+  modules: {
+    projects
+  },
   state: {
     user: {
       email: '',
@@ -84,9 +89,11 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, payload) {
       state.user = payload
+      LocalStorage.set('user', JSON.stringify(payload))
     },
     setUsuario(state, payload) {
       state.usuario = payload
+      LocalStorage.set('usuario', JSON.stringify(payload))
     },
     setlistaProdutoservico(state, listaProdutoservico) {
       state.listaProdutoservico = listaProdutoservico
@@ -177,9 +184,14 @@ export default new Vuex.Store({
     },
     clearState(state, payload) {
       state = payload
-    }
+    },
+    ...firebaseMutations
   },
   actions: {
+    APP_INIT({ commit }) {
+      const localUser = JSON.parse(LocalStorage.get.item('user') || '{}');
+      commit('setUser', localUser)
+    },
     setClearState({ commit }) {
       commit('setlistaAtividadeChave', [])
       commit('setlistaCanais', [])
@@ -221,8 +233,6 @@ export default new Vuex.Store({
           }
           commit('setUser', newUser)
           commit('setUsuario', newUser)
-          LocalStorage.set('user', JSON.stringify({ email: newUser.email, uid: newUser.uid }))
-          LocalStorage.set('usuario', JSON.stringify({ email: newUser.email, uid: newUser.uid }))
         })
         .catch(error => {
           commit('setLoading', false)
@@ -244,7 +254,6 @@ export default new Vuex.Store({
             uid: user.user.uid
           }
           commit('setUser', newUser)
-          LocalStorage.set('user', JSON.stringify({ email: newUser.email, uid: newUser.uid }))
           var user = getters.user
           var useruid = user.uid
           var userlogado = firebase
@@ -253,7 +262,6 @@ export default new Vuex.Store({
             .on('value', function(snapshot) {
               var item = snapshot.val()
               commit('setUsuario', item)
-              LocalStorage.set('usuario', JSON.stringify(item))
             })
         })
         .catch(function(error) {
@@ -288,7 +296,6 @@ export default new Vuex.Store({
         .on('value', function(snapshot) {
           const item = snapshot.val()
           commit('setUsuario', item)
-          LocalStorage.set('usuario', JSON.stringify(item))
         })
     },
     carregarUsuario({ commit }) {

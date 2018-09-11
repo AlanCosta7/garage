@@ -19,9 +19,12 @@ export const fireApp = firebase.initializeApp(firebaseConfig)
 export const AUTH = fireApp.auth()
 
 // Configure Firestore
-firebase.firestore().settings({ timestampsInSnapshots: true })
+const firestore = firebase.firestore()
+firestore.settings({ timestampsInSnapshots: true })
 
 export default ({ Vue }) => {
   Vue.prototype.$auth = AUTH
   Vue.prototype.$firebase = firebase
+  Vue.prototype.$db = firebase.database()
+  Vue.prototype.$firestore = firestore
 }

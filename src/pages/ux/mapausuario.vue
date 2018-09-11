@@ -150,7 +150,7 @@
                     </div>
                     </q-item>
                 </q-list>
-                <q-btn class="btnadd" round color='blue-4' icon='add' @click.native='addpremissa = true'>  
+                <q-btn class="btn-add" round color='blue-4' icon='add' @click.native='addpremissa = true'>  
                     <q-tooltip>
                     Criar premissa
                     </q-tooltip>
@@ -163,7 +163,7 @@
                 <div class="row flex items-center">
                     <h6>Estágios</h6>                    
 
-                    <q-btn class="btnadd" round color='blue-4' icon='add' @click.native='addestagio = true'>  
+                    <q-btn class="btn-add" round color='blue-4' icon='add' @click.native='addestagio = true'>  
                         <q-tooltip>
                             Criar estágio
                         </q-tooltip>
@@ -238,7 +238,7 @@
         
                 <div class="row flex items-center">
                         <h6>Oportunidades</h6>    
-                        <q-btn class="btnadd" round color='blue-4' icon='add' @click.native='addoportinidades = true'>  
+                        <q-btn class="btn-add" round color='blue-4' icon='add' @click.native='addoportinidades = true'>  
                             <q-tooltip>
                                 Criar oportunidades
                             </q-tooltip>
@@ -534,10 +534,6 @@ export default {
   position: absolute;
   top: 9px;
   right: 30px;
-}
-.modal-content,
-.q-modal-layout {
-  padding: 2%;
 }
 .scrolling-wrapper {
   overflow-x: scroll;

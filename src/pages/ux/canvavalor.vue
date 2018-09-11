@@ -902,10 +902,6 @@
             display:inline-flex;
             font-family: 'Arial Narrow', Arial, sans-serif
           }
-          .modal-content,
-          .q-modal-layout {
-            padding: 2%;
-          }
           .card {
             padding: 8%;
             border-radius: 10px
